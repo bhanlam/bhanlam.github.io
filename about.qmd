@@ -1,8 +1,21 @@
 ---
 title: "About"
+about:
+  template: trestles
+  image: images/profile.jpg
+  image-shape: round
+  links:
+    - icon: twitter
+      text: twitter
+      href: https://twitter.com/bhanlam
+    - icon: github
+      text: Github
+      href: https://github.com/bhanlam
 ---
 
 About this site
+
+{{< ai google-scholar >}}
 
 ```{r}
 1 + 1

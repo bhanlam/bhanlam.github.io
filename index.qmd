@@ -1,10 +1,49 @@
 ---
-title: "bhanlam.github.io"
+title: ""
 ---
 
-This is a Quarto website.
+<!--# launch shell to publish:  quarto publish gh-pages -->
 
-To learn more about Quarto websites visit <https://quarto.org/docs/websites>.
+```{r, message=FALSE,echo=FALSE}
+source("researchMetrics.R")
+publons.info<-publonsInfo(orcid = "0000-0001-5193-6560")
+review.Count<-publons.info$review.count #get publons reviews
+pub.Count<-publons.info$pubs.count
+```
+
+
+::: {style="width: 960px; height: 400px"}
+<!--# outer div -->
+
+::: {style="width: 360px; float: left"}
+![](images/profile.jpg){style="border-radius: 100px;" width="200"}
+
+## Bhan Lam, PhD
+
+Research Assistant Professor <br> Nanyang Technological University <br>
+
+
+
+:::
+
+::: {style="width: 600px; float: right"}
+### About Me
+
+Intrigued about all things sound. Currently engaged in soundscape research and developing active noise control systems for the betterment of urban liveability and sustainability.
+
+{{< fa magnifying-glass >}} Verified Reviews: `r review.Count` <br>
+{{< fa file-lines >}} Publications: `r pub.Count`
+
+[{{\< ai google-scholar \>}}](https://scholar.google.com.sg/citations?user=22NFnNsAAAAJ&hl=en){style="font-size:2em"}  
+[{{\< ai orcid \>}}](https://orcid.org/0000-0001-5193-6560){style="font-size:2em"}  
+[{{\< fa brands researchgate size=2x \>}}](https://www.researchgate.net/profile/Bhan-Lam)  
+[{{\< fa brands github size=2x \>}}](https://github.com/bhanlam)  
+[{{\< fa brands twitter size=2x \>}}](https://twitter.com/bhanlam)  
+[{{\< fa brands linkedin size=2x \>}}](https://www.linkedin.com/in/lambhan/)  
+[{{\< fa envelope size=2x \>}}](mailto:bhanlam@ntu.edu.sg)
+
+:::
+:::
 
 ```{r}
 1 + 1
