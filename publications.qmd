@@ -1,0 +1,25 @@
+---
+title: ""
+about:
+  template: trestles
+---
+
+::: contentblock
+::: features
+### Citation Trend (Google Scholar)
+
+[![](images/citeHistory.png){fig-align="center"}](https://scholar.google.com.sg/citations?user=22NFnNsAAAAJ&hl=en)
+:::
+
+::: features
+### Citation breakdown per article (Google Scholar)
+
+![](images/citationsPerArticle.png){fig-align="center"}
+:::
+
+::: features
+### Journal Impact Factor Trend
+
+![](images/journalIF.png){fig-align="center"}
+:::
+:::
