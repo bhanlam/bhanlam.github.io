@@ -1,1 +1,18 @@
 /* css styles */
+
+.features {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.feature {
+  flex-basis: 33%;
+  text-align: center;
+}
+
+.icon {
+  width: 100px;
+  height: 100px;
+}
