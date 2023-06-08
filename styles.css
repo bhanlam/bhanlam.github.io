@@ -1,1 +1,45 @@
 /* css styles */
+
+.content-block {
+  padding-top: 20px;
+  padding-bottom: 10px;
+  margin-left: 30px;
+  margin-right: 30px;
+}
+
+.features {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding-bottom: 2em;
+  height: calc(100% + 250px);
+}
+
+.feature {
+  flex-basis: 33%;
+  text-align: center;
+}
+
+.icon {
+  width: 100px;
+  height: 100px;
+}
+
+.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 0px;
+}
+
+.center-text {
+  text-align: center;
+}
+
+#profile-pic {
+  height: 200px;
+  width: 200px;
+  border-radius: 100px;
+  overflow: hidden;
+}
+

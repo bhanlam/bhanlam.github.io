@@ -27,33 +27,24 @@ review.Count<-76
 
 <!--# outer div -->
 
-::: content-block
-<!--# flex container -->
+::: {#profile-pic .center}
+![](images/profile.jpg){fig-align="center" width="200"}
+:::
 
-::: {#profile .features style="fig-align:\"center"}
-<!--# profile pic flexbox -->
+::: center-text
+## [Lam]{.underline} Bhan 
 
-![](images/profile.jpg){style="border-radius:100px" width="200"}
-
-## Bhan Lam, PhD {style="text-align:center"}
-
+<font size="-1">BEng, PhD</font> <br>
 Research Assistant Professor <br> Nanyang Technological University <br>
 
 [{{< ai google-scholar >}}](https://scholar.google.com.sg/citations?user=22NFnNsAAAAJ&hl=en){style="font-size:2em"}   [{{< ai orcid >}}](https://orcid.org/0000-0001-5193-6560){style="font-size:2em"}   [{{< fa brands researchgate size=2x >}}](https://www.researchgate.net/profile/Bhan-Lam)   [{{< fa brands github size=2x >}}](https://github.com/bhanlam)   [{{< fa brands twitter size=2x >}}](https://twitter.com/bhanlam)   [{{< fa brands linkedin size=2x >}}](https://www.linkedin.com/in/lambhan/)   [{{< fa envelope size=2x >}}](mailto:bhanlam@ntu.edu.sg)
 
 :::
 
-::: features
-::: feature
-::: {style="text-align:justify"}
+
 ### About Me
 
 Intrigued about all things sound. Currently engaged in soundscape research and developing active noise control systems for the betterment of urban liveability and sustainability.
 
 {{< fa file-lines >}} Publications: [`r pub.Count`](https://publons.com/wos-op/researcher/2575795/bhan-lam/publications/) <br> {{< fa magnifying-glass >}} Verified Reviews: [`r review.Count`](https://publons.com/wos-op/researcher/2575795/bhan-lam/peer-review/)
 
-[{{< ai google-scholar >}}](https://scholar.google.com.sg/citations?user=22NFnNsAAAAJ&hl=en){style="font-size:2em"}   [{{< ai orcid >}}](https://orcid.org/0000-0001-5193-6560){style="font-size:2em"}   [{{< fa brands researchgate size=2x >}}](https://www.researchgate.net/profile/Bhan-Lam)   [{{< fa brands github size=2x >}}](https://github.com/bhanlam)   [{{< fa brands twitter size=2x >}}](https://twitter.com/bhanlam)   [{{< fa brands linkedin size=2x >}}](https://www.linkedin.com/in/lambhan/)   [{{< fa envelope size=2x >}}](mailto:bhanlam@ntu.edu.sg)
-:::
-:::
-:::
-:::

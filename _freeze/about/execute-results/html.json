@@ -1,7 +1,7 @@
 {
-  "hash": "a754ce02c0472c0b163d8ffb898e69ac",
+  "hash": "1f912dbbdfef531ab29cc58f5a2173ab",
   "result": {
-    "markdown": "---\ntitle: \"About\"\n---\n\n\nAbout this site\n\n\n::: {.cell}\n\n```{.r .cell-code}\n1 + 1\n```\n\n::: {.cell-output .cell-output-stdout}\n```\n[1] 2\n```\n:::\n:::\n",
+    "markdown": "---\ntitle: \"About\"\nabout:\n  template: trestles\n  image: images/profile.jpg\n  image-shape: round\n  links:\n    - icon: twitter\n      text: twitter\n      href: https://twitter.com/bhanlam\n    - icon: github\n      text: Github\n      href: https://github.com/bhanlam\n---\n\n\nAbout this site\n\n\n{{< ai google-scholar >}}\n\n\n::: {.cell}\n\n```{.r .cell-code}\n1 + 1\n```\n\n::: {.cell-output .cell-output-stdout}\n```\n[1] 2\n```\n:::\n:::\n",
     "supporting": [],
     "filters": [
       "rmarkdown/pagebreak.lua"
