@@ -1,15 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://bhanlam.github.io/publications/index.html</loc>
+    <lastmod>2023-06-09T16:56:26.838Z</lastmod>
+  </url>
+  <url>
     <loc>https://bhanlam.github.io/index.html</loc>
-    <lastmod>2023-06-08T14:26:15.735Z</lastmod>
+    <lastmod>2023-06-09T16:56:27.555Z</lastmod>
   </url>
   <url>
     <loc>https://bhanlam.github.io/about.html</loc>
-    <lastmod>2023-06-08T14:26:16.286Z</lastmod>
+    <lastmod>2023-06-09T16:56:28.321Z</lastmod>
   </url>
   <url>
     <loc>https://bhanlam.github.io/cv/index.html</loc>
-    <lastmod>2023-06-08T14:26:16.878Z</lastmod>
+    <lastmod>2023-06-09T16:56:29.074Z</lastmod>
   </url>
 </urlset>
