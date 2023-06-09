@@ -1,5 +1,9 @@
 ---
 title: ""
+format: 
+  html:
+    anchor-sections: true
+    toc: true 
 ---
 
 ## Full Publication List
@@ -47,6 +51,9 @@ for (each in 1:nrow(art.df)) {
   
   cat("\n<br><br>\n")
 }
+```
+
+```{r, results='asis', echo=FALSE, warning=FALSE, message=FALSE}
 
 cat("### Conference proceedings \n<br>")
 
