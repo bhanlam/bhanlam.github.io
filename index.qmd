@@ -39,9 +39,11 @@ All my Publications here: [Publications](./publications/index.qmd){.btn .btn-sec
 :::
 
 ::: {.g-col-4 .vh-center .center-text}
-{{< fa regular calendar-days >}} **Upcoming event:** [![](images/logo-in2023.svg){fig-align="center" width="250"}](https://internoise2023.org/) 
 
-Meet me at inter.noise 2023 in Chiba, Japan from 20-23 Aug!
+{{< fa bullhorn >}} **Call for papers!**
+![](images/CALL FOR PAPERS.png){fig-align="center" width="250" .lightbox}
+
+{{< fa regular calendar-days >}} **Upcoming event:** [![](images/logo-in2023.svg){fig-align="center" width="250"}](https://internoise2023.org/) 
 
 
 :::
