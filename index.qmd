@@ -14,25 +14,6 @@ filters:
 
 [//]: # "launch terminal to publish: quarto publish gh-pages" 
 
-```{r, message=FALSE,echo=FALSE}
-renew.metrics<-FALSE
-
-if(renew.metrics==TRUE){
-source("researchMetrics.R")
-publons.info<-publonsInfo(orcid = "0000-0001-5193-6560")
-review.Count<-publons.info$review.count #get publons reviews
-pub.Count<-publons.info$pubs.count
-Sys.setenv(REVIEW_COUNT=review.Count,
-           PUB_COUNT=pub.Count)
-}else{
-  pub.Count<-Sys.getenv("PUB_COUNT")
-  review.Count<-Sys.getenv("REVIEW_COUNT")
-}
-
-pub.Count<-63
-review.Count<-76
-```
-
 <!--# outer div -->
 
 ::: {#profile-pic .center}
@@ -53,8 +34,8 @@ review.Count<-76
 
 > Intrigued about all things sound {{< fa volume-high >}} Currently engaged in soundscape research and developing active noise control systems for the betterment of urban liveability and sustainability {{< fa tree-city >}}.
 
-Check out my full CV here: [CV](CV.qmd){.btn .btn-secondary role="button"} <br>
-All my Publications here: [Publications](publications.qmd){.btn .btn-secondary role="button"}
+Check out my full CV here: [CV](./cv/index.qmd){.btn .btn-secondary role="button"} <br>
+All my Publications here: [Publications](./publications/index.qmd){.btn .btn-secondary role="button"}
 :::
 
 ::: {.g-col-4 .vh-center .center-text}
