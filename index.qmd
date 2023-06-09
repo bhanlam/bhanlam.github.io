@@ -2,9 +2,17 @@
 title: ""
 page-layout: full
 title-block-banner: false
+format: 
+  html:
+    anchor-sections: false
+    toc: false 
+filters:
+  - lightbox
+
+    
 ---
 
-<!--# launch shell to publish:  quarto publish gh-pages -->
+[//]: # "launch terminal to publish: quarto publish gh-pages" 
 
 ```{r, message=FALSE,echo=FALSE}
 renew.metrics<-FALSE
@@ -32,19 +40,60 @@ review.Count<-76
 :::
 
 ::: center-text
-## [Lam]{.underline} Bhan 
+## [Lam]{.underline} Bhan
 
-<font size="-1">BEng, PhD</font> <br>
-Research Assistant Professor <br> Nanyang Technological University <br>
+<font size="-1">BEng, PhD</font> <br> {{< fa briefcase >}} Research Assistant Professor <br> {{< fa building-columns >}} Nanyang Technological University <br>
 
-[{{< ai google-scholar >}}](https://scholar.google.com.sg/citations?user=22NFnNsAAAAJ&hl=en){style="font-size:2em"}   [{{< ai orcid >}}](https://orcid.org/0000-0001-5193-6560){style="font-size:2em"}   [{{< fa brands researchgate size=2x >}}](https://www.researchgate.net/profile/Bhan-Lam)   [{{< fa brands github size=2x >}}](https://github.com/bhanlam)   [{{< fa brands twitter size=2x >}}](https://twitter.com/bhanlam)   [{{< fa brands linkedin size=2x >}}](https://www.linkedin.com/in/lambhan/)   [{{< fa envelope size=2x >}}](mailto:bhanlam@ntu.edu.sg)
+[{{< ai google-scholar >}}](https://scholar.google.com.sg/citations?user=22NFnNsAAAAJ&hl=en){style="font-size:2em"}   [{{< ai orcid >}}](https://orcid.org/0000-0001-5193-6560){style="font-size:2em"}   [{{< ai clarivate >}}](https://www.webofscience.com/wos/author/record/O-2911-2013){style="font-size:2em"}   [{{< ai researchgate >}}](https://www.researchgate.net/profile/Bhan-Lam){style="font-size:2em"}   [{{< fa brands github size=2x >}}](https://github.com/bhanlam)   [{{< fa brands twitter size=2x >}}](https://twitter.com/bhanlam)   [{{< fa brands linkedin size=2x >}}](https://www.linkedin.com/in/lambhan/)   [{{< fa envelope size=2x >}}](mailto:bhanlam@ntu.edu.sg)
+:::
 
+::: grid
+::: {.g-col-8 .vh-left .just-text}
+### {{< fa hand-point-up >}} About Me
+
+> Intrigued about all things sound {{< fa volume-high >}} Currently engaged in soundscape research and developing active noise control systems for the betterment of urban liveability and sustainability {{< fa tree-city >}}.
+
+Check out my full CV here: [CV](CV.qmd){.btn .btn-secondary role="button"} <br>
+All my Publications here: [Publications](publications.qmd){.btn .btn-secondary role="button"}
+:::
+
+::: {.g-col-4 .vh-center .center-text}
+{{< fa regular calendar-days >}} **Upcoming event:** [![](images/logo-in2023.svg){fig-align="center" width="250"}](https://internoise2023.org/) 
+
+Meet me at inter.noise 2023 in Chiba, Japan from 20-23 Aug!
+
+
+:::
 :::
 
 
-### About Me
+::: center-text
 
-Intrigued about all things sound. Currently engaged in soundscape research and developing active noise control systems for the betterment of urban liveability and sustainability.
+<br><br>
 
-{{< fa file-lines >}} Publications: [`r pub.Count`](https://publons.com/wos-op/researcher/2575795/bhan-lam/publications/) <br> {{< fa magnifying-glass >}} Verified Reviews: [`r review.Count`](https://publons.com/wos-op/researcher/2575795/bhan-lam/peer-review/)
+### {{< fa file-lines >}} A Summary of Publication & Citation metrics 
 
+#### Citation Trend (Google Scholar)
+
+![](images/citeHistory.png){fig-align="center" .lightbox}
+
+:::
+
+::: content-block
+::: features
+::: {#citation-pic .feature}
+#### Citation breakdown per article (Google Scholar)
+
+![](images/citationsPerArticle.png){fig-align="center" .lightbox group="pub-metrics"}
+:::
+
+::: {#citation-pic .feature}
+#### Journal Impact Factor Trend
+
+![](images/journalIF.png){fig-align="center" .lightbox group="pub-metrics"}
+
+:::
+
+:::
+
+:::

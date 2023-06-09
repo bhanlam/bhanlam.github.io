@@ -1,0 +1,93 @@
+---
+title: ""
+page-layout: full
+format: 
+  html: 
+    toc: true
+---
+
+## {{< fa user-tie >}} Biography
+
+::: just-text
+{{< fa quote-left >}} [**Dr. Bhan, Lam**](index.qmd) is a dedicated researcher and academic in the field of Electrical and Electronic Engineering. He completed his B.Eng. (Hons.) and Ph.D. degrees at the School of Electrical and Electronic Engineering, Nanyang Technological University, Singapore, in 2013 and 2019, respectively. He was awarded the NTU Research Scholarship and EEE Graduate Award, which supported his Ph.D. studies under the guidance of [Prof. Woon-Seng Gan](https://www3.ntu.edu.sg/home/ewsgan/).
+
+During his Ph.D., Dr. Lam had the valuable opportunity to expand his research horizons as a visiting postgrad in the signal processing and control group at the Institute of Sound and Vibration Research, University of Southampton, UK. This international experience broadened his knowledge and perspective.
+
+Dr. Lam's contributions and expertise have been recognized on numerous occasions. He had the honor of being an invited representative at the 2020 Global Young Scientist Summit and also served as an invited tutorial speaker at APSIPA ASC 2020, where he shared his knowledge with fellow professionals. In 2021, he was appointed as a Research Assistant Professor at the School of Electrical and Electronic Engineering, NTU, Singapore.
+
+Dr. Lam's research focuses on acoustics, soundscape, and signal processing for active control. He has contributed to the field with more than [70](publications.qmd) refereed journal articles and conference papers. Notably, his work on anti-noise windows was patented (WO2022055432) and recognized as a top-100 paper in Nature Scientific Reports in 2020.
+
+Dr. Lam's dedication to the advancement of his field is evident through his involvement as a guest editor with the [Journal of the Acoustical Society of America](https://pubs.aip.org/asa/jasa/pages/cfp030223), [Sustainability](https://pubs.aip.org/asa/jasa/pages/cfp030223), and served as a special session co-chair in the 2022 IEEE International Conference on Acoustics, Speech and Signal Processing (ICASSP). He is currently in the National Mirror Committee of ISO TC43/SC1/WG54 on "Perceptual assessment of soundscape quality". His current research interests include active noise control, soundscape, and signal processing for active control. {{< fa quote-right >}}
+:::
+
+## {{< fa graduation-cap >}} Education
+
+-   {{< fa circle-notch >}} **Doctor of Philosophy (Electrical & Electronic Engineering)** \| **Nanyang Technological University** \| 2019
+
+-   Awarded NTU Research Scholarship & EEE graduate award. The PhD thesis investigated active noise control systems for open windows.
+
+-   {{< fa circle-notch >}} **Bachelor of Engineering (Information Engineering & Media)** \| **Nanyang Technological University** \| 2013
+
+-   Obtained Honours (Distinction) in a multi-disciplinary degree.
+
+-   {{< fa circle-notch >}} **Visiting Postgrad** \| **Institute of Sound & Vibration Research, University of Southampton, SO, UK** \| Jan -- Jul 2015 Mentored by Prof. Stephen J. Elliott. Researched on the acoustic diffraction effects of sound waves through open windows, resulting in 2 journal and 3 conference publications.
+
+## {{< fa business-time >}} Experience
+
+-   {{< fa circle-notch >}} **Research Fellow → Research Assistant Professor** \| **Nanyang Technological University** \| 2019 -- present
+
+-   Lead researcher in designing the internet-of-things based soundscape monitoring and augmentation system for outdoor recreational spaces. Also, aiding the research effort on a scalable active noise control system to mitigate low-frequency urban transportation noise through domestic windows and construction machinery.
+
+-   {{< fa circle-notch >}} **Consultancy** \| 2020 -- present
+
+-   Completed consultancy projects on active noise control with Amazon Inc. and SAV Group (real estate).
+
+-   Ongoing projects:
+
+    -   {{< fa angles-right >}} Housing and Development Board, China Construction (South Pacific) Development Co, and Kay Lim Holdings: develop a portable ANC system for construction machinery,
+    -   {{< fa angles-right >}} Home Team Science and Technology Agency: wayfinding in low visibility with spatial audio cues.
+
+## {{< fa id-card >}} Memberships
+
+-   {{< fa circle-notch >}} **National Mirror Committee (ISO/TC43/SC1/WG54)** \| **Singapore Standards Council** \| 2022 -- present Spearheaded and currently leading the involvement of Singapore in the development of the ISO 12913 series of standards on soundscape.
+
+-   {{< fa circle-notch >}} **Member** \| **IEEE** \| 2018 -- present Graduate student member in 2018 and subsequently a member in 2019 - present.
+
+## {{< fa magnifying-glass >}} Editorial & Peer Review
+
+#### **Editorial**
+
+-   {{< fa circle-notch >}} **Guest Editor** \| **Journal of the Acoustical Society of America** \| 2023 - present
+-   {{< fa circle-notch >}} **Guest Editor** \| **Sustainability** \| 2021 -- 2023
+
+#### **Peer review**
+
+-   **Verified peer reviews**: [100](https://www.webofscience.com/wos/author/record/O-2911-2013)
+-   **Reviewer for**:
+    -   IEEE/ACM T Audio Speech \| IEEE Signal Process. Let.
+    -   Build. Environ. \| Appl. Acoust. \| J. Sound. Vib \| Mech. Syst. Signal Process. \| Digital Sig. Process. \| Sust. Cities Soc. \| Landsc. Urban Plan
+    -   J. Acoust. Soc. Am.
+
+## {{< fa lightbulb >}} Intellectual Property
+
+-   {{< fa circle-notch >}} **A System And Method For Automatic Augmentation Of Soundscapes** \| 10202204451S \| PCT Application No: PCT/SG2023/050289 \| 26 Apr 2023
+-   {{< fa circle-notch >}} **A System and Method for Active Noise Control with Power Output Constraint** \| 10202300315Y \| Non-Drafted Singapore Patent Application \| 8 Feb 2023
+-   {{< fa circle-notch >}} **Noise Cancellation Device Fitted On Openable Façade Openings** \| 11202261452U \| Singapore (National Phase Entry from PCT Application No: PCT/SG2021/050549) \| 10 Sep 2021
+-   {{< fa circle-notch >}} **A Novel Convolutional Neural Network-Based Selective Fixed-Filter Active Noise Control Algorithm** \| 10202250148C \| Non-Drafted Singapore Patent Application \| 13 Jun 2022
+-   {{< fa circle-notch >}} **Augmented Urban Soundscape (AUS)** \| Technical Disclosure \| NTU, SG \| 1 Apr 2020
+-   {{< fa circle-notch >}} **Low Cost, Scalable And Multiple Channel Active Noise Control For Open Windows** \| 10201802277R \| Non-Drafted Singapore Patent Application \| 20 Mar 2018
+
+## {{< fa clapperboard >}} Media Interviews and Features
+
+-   {{< fa video >}} [CNN Tech for Good](https://www.linkedin.com/posts/kristielustout_cnn-techforgood-noisepollution-activity-6961120515180695552-XYcL?utm_source=share&utm_medium=member_desktop) \| 30 Jul 2022
+-   {{< fa video >}} [Nas Daily](https://www.facebook.com/nasdaily/videos/731958104319917) \| 3 Oct 2020
+-   {{< fa podcast >}} [Scientific American](https://www.scientificamerican.com/podcast/episode/speaker-system-blocks-city-noise/) \| 21 Jul 2020
+-   {{< fa newspaper >}} [The New York Times](https://www.nytimes.com/2020/07/11/science/windows-street-noise.html) \| 11 Jul 2020
+-   {{< fa newspaper >}} [AFP](https://www.thestar.com.my/tech/tech-news/2020/09/14/sick-of-city-din-try-noise-cancelling-headphones-for-your-flat) \| 11 Sep 2020
+-   {{< fa newspaper >}} [de Volkskrant](https://www.volkskrant.nl/wetenschap/raam-open-en-toch-geen-lawaai-nieuw-apparaat-schakelt-verkeersherrie-uit~b3422b04/?referrer=https%3A%2F%2Fnature.altmetric.com%2Fdetails%2F85494619%2Fnews)
+-   {{< fa globe >}} [IEEE Spectrum](https://spectrum.ieee.org/tech-talk/green-tech/buildings/canceling-street-noise-at-your-homes-window) \| 9 Jul 2020
+-   {{< fa globe >}} [New Scientist Magazine](https://www.newscientist.com/article/2248486-noise-cancelling-windows-halve-traffic-sounds-even-when-theyre-open/) \| 9 Jul 2020
+
+## Collaborators
+
+![](../images/coauthormap.png){.lightbox fig-align="center"}

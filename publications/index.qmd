@@ -1,0 +1,91 @@
+---
+title: ""
+---
+
+## Full Publication List
+
+```{r, results='asis', echo=FALSE, warning=FALSE, message=FALSE}
+
+library(tidyverse)
+
+#load tidied publication data
+pub.df<-read.csv("../data/mergedPubList_manual.csv") 
+pub.df<-pub.df %>%
+  arrange(desc(year))
+
+cat("### Journal Articles \n<br>")
+
+#articles only
+art.df<-pub.df %>%
+  filter(type=="Article")
+
+for (each in 1:nrow(art.df)) {
+  cat(paste0(art.df$authors[each],",
+             \"",art.df$title[each],"\", *",
+             art.df$journalShort[each],"*, ",
+             art.df$year[each], ". \n<br> Find it here: ",
+             "[{{< ai doi-square >}}](https://doi.org/",art.df$doi[each],")",
+             "{style=\"font-size:1.5em\"}  "))
+  
+  #if RG link available
+  if (!is.na(art.df$rg[each])){
+    cat(paste0("[{{< ai researchgate-square >}}](", art.df$rg[each],")",
+             "{style=\"font-size:1.5em\"}  "))
+  }
+  
+  #if arxiv link available
+  if (!is.na(art.df$arxiv[each])){
+    cat(paste0("[{{< ai arxiv-square >}}](", art.df$arxiv[each],")",
+             "{style=\"font-size:1.5em\"}  "))
+  }
+  
+  #if url link available
+  if (!is.na(art.df$url[each])){
+    cat(paste0("[{{< fa globe >}}](", art.df$url[each],")",
+             "{style=\"font-size:1.5em\"}  "))
+  }
+  
+  cat("\n<br><br>\n")
+}
+
+cat("### Conference proceedings \n<br>")
+
+#conferences only
+conf.df<-pub.df %>%
+  filter(type=="Proceedings Paper")
+
+for (each in 1:nrow(conf.df)) {
+  cat(paste0(conf.df$authors[each],",
+             \"",conf.df$title[each],"\", *",
+             conf.df$journalShort[each],"*, in: ",
+             conf.df$Country[each], ", ",
+             conf.df$year[each], ". \n<br> Find it here: "))
+  
+  #if doi link available
+  if (!is.na(conf.df$doi[each])){
+    cat(paste0("[{{< ai doi >}}](https://doi.org/",conf.df$doi[each],")",
+             "{style=\"font-size:1.5em\"}  "))
+  }
+  
+  #if RG link available
+  if (!is.na(conf.df$rg[each])){
+    cat(paste0("[{{< ai researchgate >}}](", conf.df$rg[each],")",
+             "{style=\"font-size:1.5em\"}  "))
+  }
+  
+  #if arxiv link available
+  if (!is.na(conf.df$arxiv[each])){
+    cat(paste0("[{{< ai arxiv >}}](", conf.df$arxiv[each],")",
+             "{style=\"font-size:1.5em\"}  "))
+  }
+  
+  #if url link available
+  if (!is.na(conf.df$url[each])){
+    cat(paste0("[{{< fa globe >}}](", conf.df$url[each],")",
+             "{style=\"font-size:1.5em\"}  "))
+  }
+  
+  cat("\n<br><br>")
+}
+
+```
