@@ -8,6 +8,7 @@ format:
 
 ## Full Publication List
 
+
 ```{r, results='asis', echo=FALSE, warning=FALSE, message=FALSE}
 
 library(tidyverse)
@@ -28,24 +29,24 @@ for (each in 1:nrow(art.df)) {
              \"",art.df$title[each],"\", *",
              art.df$journalShort[each],"*, ",
              art.df$year[each], ". \n<br> Find it here: ",
-             "[{{< ai doi-square >}}](https://doi.org/",art.df$doi[each],")",
+             "[{{< ai doi-square title=\"DOI\" >}}](https://doi.org/",art.df$doi[each],")",
              "{style=\"font-size:1.5em\"}  "))
   
   #if RG link available
   if (!is.na(art.df$rg[each])){
-    cat(paste0("[{{< ai researchgate-square >}}](", art.df$rg[each],")",
+    cat(paste0("[{{< ai researchgate-square title=\"ResearchGate\" >}}](", art.df$rg[each],")",
              "{style=\"font-size:1.5em\"}  "))
   }
   
   #if arxiv link available
   if (!is.na(art.df$arxiv[each])){
-    cat(paste0("[{{< ai arxiv-square >}}](", art.df$arxiv[each],")",
+    cat(paste0("[{{< ai arxiv-square title=\"arXiv\" >}}](", art.df$arxiv[each],")",
              "{style=\"font-size:1.5em\"}  "))
   }
   
   #if url link available
   if (!is.na(art.df$url[each])){
-    cat(paste0("[{{< fa globe >}}](", art.df$url[each],")",
+    cat(paste0("[{{< fa globe title=\"Other Sources\" >}}](", art.df$url[each],")",
              "{style=\"font-size:1.5em\"}  "))
   }
   
@@ -70,25 +71,25 @@ for (each in 1:nrow(conf.df)) {
   
   #if doi link available
   if (!is.na(conf.df$doi[each])){
-    cat(paste0("[{{< ai doi >}}](https://doi.org/",conf.df$doi[each],")",
+    cat(paste0("[{{< ai doi-square title=\"DOI\" >}}](https://doi.org/",conf.df$doi[each],")",
              "{style=\"font-size:1.5em\"}  "))
   }
   
   #if RG link available
   if (!is.na(conf.df$rg[each])){
-    cat(paste0("[{{< ai researchgate >}}](", conf.df$rg[each],")",
+    cat(paste0("[{{< ai researchgate-square title=\"ResearchGate\" >}}](", conf.df$rg[each],")",
              "{style=\"font-size:1.5em\"}  "))
   }
   
   #if arxiv link available
   if (!is.na(conf.df$arxiv[each])){
-    cat(paste0("[{{< ai arxiv >}}](", conf.df$arxiv[each],")",
+    cat(paste0("[{{< ai arxiv-square title=\"arXiv\" >}}](", conf.df$arxiv[each],")",
              "{style=\"font-size:1.5em\"}  "))
   }
   
   #if url link available
   if (!is.na(conf.df$url[each])){
-    cat(paste0("[{{< fa globe >}}](", conf.df$url[each],")",
+    cat(paste0("[{{< fa globe title=\"Other Sources\" >}}](", conf.df$url[each],")",
              "{style=\"font-size:1.5em\"}  "))
   }
   
