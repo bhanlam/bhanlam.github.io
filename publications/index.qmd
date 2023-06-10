@@ -6,7 +6,9 @@ format:
     toc: true 
 ---
 
-## Full Publication List
+
+
+## Featured Publications
 
 
 ```{r, results='asis', echo=FALSE, warning=FALSE, message=FALSE}
@@ -17,6 +19,87 @@ library(tidyverse)
 pub.df<-read.csv("../data/mergedPubList_manual.csv") 
 pub.df<-pub.df %>%
   arrange(desc(year))
+
+doi.list<-c("10.1038/s41598-020-66563-z",
+            "10.1016/j.buildenv.2021.107928")
+
+for (doi.ind in 1:length(doi.list)) {
+  each<-which(pub.df$doi==doi.list[doi.ind])
+  
+  cat(paste0("::: grid \n", #grid-1
+           "::: {.g-col-10 .vh-left .just-text} \n", #g-col-10-1
+           pub.df$authors[each],
+           ", \"",pub.df$title[each], "\", *",
+           pub.df$journalShort[each], "*, ",
+           pub.df$year[each], ". ",
+           "[{{< ai doi-square title=\"DOI\" >}}](https://doi.org/",pub.df$doi[each], ")",
+           "{style=\"font-size:1.5em\"}  "))
+
+ #if RG link available
+  if (!is.na(pub.df$rg[each])){
+    cat(paste0("[{{< ai researchgate-square title=\"ResearchGate\" >}}](", pub.df$rg[each],")",
+             "{style=\"font-size:1.5em\"}  "))
+  }
+  
+  #if arxiv link available
+  if (!is.na(pub.df$arxiv[each])){
+    cat(paste0("[{{< ai arxiv-square title=\"arXiv\" >}}](", pub.df$arxiv[each],")",
+             "{style=\"font-size:1.5em\"}  "))
+  }
+  
+  #if url link available
+  if (!is.na(pub.df$url[each])){
+    cat(paste0("[{{< fa globe title=\"Other Sources\" >}}](", pub.df$url[each],")",
+             "{style=\"font-size:1.5em\"}  "))
+  }
+  
+  
+  cat(paste0("\n", "::: \n")) #close g-col-10-1
+
+  #dimensions and altmetrics
+  cat(paste0("::: {.g-col-2 .vh-start }\n", #g-col-2-1
+             "<span class=\"__dimensions_badge_embed__\" data-doi=\"",
+             doi.list[doi.ind],
+             "\"  data-style=\"small_circle\"></span> \n",
+             "<div class='altmetric-embed' data-badge-popover='left' data-badge-type='donut' data-doi='",
+             doi.list[doi.ind], "'></div> \n", 
+             "::: \n", #close g-col-2-1
+             "::: \n"))  #close grid-1
+  
+  if (doi.list[doi.ind]=="10.1038/s41598-020-66563-z") {
+    #sci rep paper
+    cat(paste0("::: grid \n", #grid-2
+               "::: {.g-col-10 .vh-left .just-text} \n", #g-col-10-2
+               "> Nature Scientific Reports [Top 50](https://www.nature.com/collections/feidhcahdd) most downloaded paper in 2020 \n",
+               "::: \n", #close g-col-10-2
+               "::: {.g-col-2 .vh-start }\n", #g-col-2-2
+               "::: icon \n", #icon
+               "![](../images/scireptop100.png){.lightbox} \n",
+               "::: \n", #close icon
+               "::: \n",#close g-col-2-2
+               "::: \n")) #close grid-2 
+  } 
+  if (doi.list[doi.ind]=="10.1016/j.buildenv.2021.107928"){
+    cat(paste0("::: grid \n", #grid-2
+               "::: {.g-col-10 .vh-left .just-text} \n", #g-col-10-2
+               "> [Invitation-based special initiative paper](https://doi.org/10.1016/j.buildenv.2015.08.012) \n",
+               "::: \n", #close g-col-10-2 
+               "::: \n")) #close grid-2 
+  }
+  
+  
+  cat("\n<p><br></p>\n")
+}
+
+```
+
+
+## Full Publication List
+
+
+```{r, results='asis', echo=FALSE, warning=FALSE, message=FALSE}
+
+library(tidyverse)
 
 cat("### Journal Articles \n<br>")
 
@@ -97,3 +180,7 @@ for (each in 1:nrow(conf.df)) {
 }
 
 ```
+[//]: # "altmetric script" 
+<script type='text/javascript' src='https://d1bxh8uas1mnw7.cloudfront.net/assets/embed.js'></script>
+[//]: # "dimensions script" 
+<script async src="https://badge.dimensions.ai/badge.js" charset="utf-8"></script>
