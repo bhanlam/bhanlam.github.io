@@ -1,5 +1,5 @@
 /*
- *  Academicons 1.9.2 by James Walsh (https://github.com/jpswalsh) and Katja Bercic (https://github.com/katjabercic)
+ *  Academicons 1.9.4 by James Walsh (https://github.com/jpswalsh) and Katja Bercic (https://github.com/katjabercic)
  *  Fonts generated using FontForge - https://fontforge.org
  *  Square icons designed to be used alongside Font Awesome square icons - https://fortawesome.github.io/Font-Awesome/
  *  Licenses - Font: SIL OFL 1.1, CSS: MIT License
@@ -9,11 +9,11 @@
     font-style: normal;
     font-weight: 400;
     font-display: block;
-    src:url('1e21o67/academicons.eot');
-    src:url('1e21o67/academicons.eot') format('embedded-opentype'),
-        url('1e21o67/academicons.ttf') format('truetype'),
-        url('1e21o67/academicons.woff') format('woff'),
-        url('1e21o67/academicons.svg') format('svg');
+    src:url('1011ss5/academicons.eot');
+    src:url('1011ss5/academicons.eot') format('embedded-opentype'),
+        url('1011ss5/academicons.ttf') format('truetype'),
+        url('1011ss5/academicons.woff') format('woff'),
+        url('1011ss5/academicons.svg') format('svg');
 }
 .ai {
   font-family: 'Academicons';
@@ -236,6 +236,12 @@
 .ai-isidore-square:before {
   content: "\e954";
 }
+.ai-isni:before {
+  content: "\e957";
+}
+.ai-isni-square:before {
+  content: "\e958";
+}
 .ai-jstor:before {
   content: "\e938";
 }
@@ -433,6 +439,18 @@
 }
 .ai-stackoverflow-square:before {
   content: "\e921";
+}
+.ai-viaf:before {
+  content: "\e933";
+}
+.ai-viaf-square:before {
+  content: "\e934";
+}
+.ai-wiley:before {
+  content: "\e926";
+}
+.ai-wiley-square:before {
+  content: "\e927";
 }
 .ai-zenodo:before {
   content: "\e911";
