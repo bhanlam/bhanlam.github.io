@@ -53,9 +53,9 @@
 }
 
 .icon {
-  width: 100px;
-  height: 100px;
-  color: ; #3459e6;
+  width: 75px;
+  height: 75px;
+  
 }
 
 .center {
@@ -98,10 +98,26 @@
   align-items: left;
 }
 
+.vh-start {
+  display: grid;
+  justify-content: flex-start;
+  align-items: right;
+}
+
 .pic-lb {
   width: 300px;
 }
 
 ul {
   list-style-type: none;
+}
+
+.altmetric {
+  margin: 0px; /* remove all margins to fit two divs in the container */
+  display: inline-block; /* display block elements in one line */
+}
+
+.dimensions {
+  margin: 0px; /* remove all margins to fit two divs in the container */
+  display: inline-block; /* display block elements in one line */
 }
