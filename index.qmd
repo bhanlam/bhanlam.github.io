@@ -34,8 +34,8 @@ filters:
 
 > Intrigued about all things sound {{< fa volume-high >}} Currently engaged in soundscape research and developing active noise control systems for the betterment of urban liveability and sustainability {{< fa tree-city >}}.
 
-Check out my full CV here: [CV](./cv/index.qmd){.btn .btn-secondary role="button"} <br>
-All my Publications here: [Publications](./publications/index.qmd){.btn .btn-secondary role="button"}
+Check out my full CV here: [{{< fa address-card >}} CV](./cv/index.qmd){.btn .btn-secondary role="button"} <br>
+All my Publications here: [{{< fa file-lines >}} Publications](./publications/index.qmd){.btn .btn-secondary role="button"}
 :::
 
 ::: {.g-col-4 .vh-center .center-text}

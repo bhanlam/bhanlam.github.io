@@ -6,8 +6,6 @@ format:
     toc: true 
 ---
 
-
-
 ## Featured Publications
 
 
@@ -23,6 +21,36 @@ pub.df<-pub.df %>%
 doi.list<-c("10.1038/s41598-020-66563-z",
             "10.1016/j.buildenv.2021.107928")
 
+icon.btn.html<-data.frame(
+  doi=c("\n [ <span style=\"font-size: 1.5em; color: #3459e6;\">
+  {{< ai doi-square title=\"DOI\" >}} </span> 
+  <span style=\"font-size: 1.25em;\"> DOI </span> ](https://doi.org/", 
+  "){.btn .btn-secondary role=\"button\"}  "),
+  rg=c("[ <span style=\"font-size: 1.5em; color: #3459e6;\">
+  {{< ai researchgate-square title=\"ResearchGate\" >}} </span> 
+  <span style=\"font-size: 1.25em;\"> ResearchGate </span> ](",
+  "){.btn .btn-secondary role=\"button\"}  "),
+  arxiv=c("[ <span style=\"font-size: 1.5em; color: #3459e6;\">
+  {{< ai arxiv-square title=\"arXiv\" >}} </span> 
+  <span style=\"font-size: 1.25em;\"> arXiv </span> ](",
+  "){.btn .btn-secondary role=\"button\"}  "),
+  url=c("[ <span style=\"font-size: 1.5em; color: #3459e6;\">
+  {{< fa globe title=\"Other Sources\" >}} </span> 
+  <span style=\"font-size: 1.25em;\"> Other URL </span> ](",
+  "){.btn .btn-secondary role=\"button\"}  "))
+
+metrics.html<-data.frame(
+  altmetric=c(
+    "<div class='altmetric-embed' data-badge-popover='left' 
+    data-badge-type='donut' data-doi='",
+    "'></div> \n"
+  ),
+  dimensions=c(
+    "<span class=\"__dimensions_badge_embed__\" data-doi=\"",
+    "\"  data-style=\"small_circle\"></span> \n"
+  )
+)
+
 for (doi.ind in 1:length(doi.list)) {
   each<-which(pub.df$doi==doi.list[doi.ind])
   
@@ -32,37 +60,35 @@ for (doi.ind in 1:length(doi.list)) {
            ", \"",pub.df$title[each], "\", *",
            pub.df$journalShort[each], "*, ",
            pub.df$year[each], ". ",
-           "[{{< ai doi-square title=\"DOI\" >}}](https://doi.org/",pub.df$doi[each], ")",
-           "{style=\"font-size:1.5em\"}  "))
+           "\n", icon.btn.html$doi[1],
+           pub.df$doi[each], 
+           icon.btn.html$doi[2]))
 
  #if RG link available
   if (!is.na(pub.df$rg[each])){
-    cat(paste0("[{{< ai researchgate-square title=\"ResearchGate\" >}}](", pub.df$rg[each],")",
-             "{style=\"font-size:1.5em\"}  "))
+    cat(paste0(icon.btn.html$rg[1],pub.df$rg[each],icon.btn.html$rg[2]))
   }
   
   #if arxiv link available
   if (!is.na(pub.df$arxiv[each])){
-    cat(paste0("[{{< ai arxiv-square title=\"arXiv\" >}}](", pub.df$arxiv[each],")",
-             "{style=\"font-size:1.5em\"}  "))
+    cat(paste0(icon.btn.html$arxiv[1], pub.df$arxiv[each], 
+               icon.btn.html$arxiv[2]))
   }
   
   #if url link available
   if (!is.na(pub.df$url[each])){
-    cat(paste0("[{{< fa globe title=\"Other Sources\" >}}](", pub.df$url[each],")",
-             "{style=\"font-size:1.5em\"}  "))
+    cat(paste0(icon.btn.html$globe[1], pub.df$url[each],
+               icon.btn.html$globe[2]))
   }
-  
   
   cat(paste0("\n", "::: \n")) #close g-col-10-1
 
   #dimensions and altmetrics
   cat(paste0("::: {.g-col-2 .vh-start }\n", #g-col-2-1
-             "<span class=\"__dimensions_badge_embed__\" data-doi=\"",
-             doi.list[doi.ind],
-             "\"  data-style=\"small_circle\"></span> \n",
-             "<div class='altmetric-embed' data-badge-popover='left' data-badge-type='donut' data-doi='",
-             doi.list[doi.ind], "'></div> \n", 
+             metrics.html$dimensions[1], doi.list[doi.ind], 
+             metrics.html$dimensions[2],
+             metrics.html$altmetric[1], doi.list[doi.ind], 
+             metrics.html$altmetric[2], 
              "::: \n", #close g-col-2-1
              "::: \n"))  #close grid-1
   
@@ -70,7 +96,9 @@ for (doi.ind in 1:length(doi.list)) {
     #sci rep paper
     cat(paste0("::: grid \n", #grid-2
                "::: {.g-col-10 .vh-left .just-text} \n", #g-col-10-2
-               "> Nature Scientific Reports [Top 50](https://www.nature.com/collections/feidhcahdd) most downloaded paper in 2020 \n",
+               "> Nature Scientific Reports 
+               [Top 50](https://www.nature.com/collections/feidhcahdd) 
+               most downloaded paper in 2020 \n",
                "::: \n", #close g-col-10-2
                "::: {.g-col-2 .vh-start }\n", #g-col-2-2
                "::: icon \n", #icon
@@ -82,7 +110,9 @@ for (doi.ind in 1:length(doi.list)) {
   if (doi.list[doi.ind]=="10.1016/j.buildenv.2021.107928"){
     cat(paste0("::: grid \n", #grid-2
                "::: {.g-col-10 .vh-left .just-text} \n", #g-col-10-2
-               "> [Invitation-based special initiative paper](https://doi.org/10.1016/j.buildenv.2015.08.012) \n",
+               "> Elsevier Building and Environment journal, 
+               [invitation-based special initiative paper]
+               (https://doi.org/10.1016/j.buildenv.2015.08.012) \n",
                "::: \n", #close g-col-10-2 
                "::: \n")) #close grid-2 
   }
@@ -101,39 +131,57 @@ for (doi.ind in 1:length(doi.list)) {
 
 library(tidyverse)
 
-cat("### Journal Articles \n<br>")
+cat("### Journal Articles \n<p><br></P>")
 
 #articles only
 art.df<-pub.df %>%
   filter(type=="Article")
 
 for (each in 1:nrow(art.df)) {
-  cat(paste0(art.df$authors[each],",
-             \"",art.df$title[each],"\", *",
-             art.df$journalShort[each],"*, ",
-             art.df$year[each], ". \n<br> Find it here: ",
-             "[{{< ai doi-square title=\"DOI\" >}}](https://doi.org/",art.df$doi[each],")",
-             "{style=\"font-size:1.5em\"}  "))
+  cat(paste0(
+    "::: grid \n", #grid-1
+    "::: {.g-col-10 .vh-left .just-text} \n",
+    art.df$authors[each],
+    ", \"",art.df$title[each], "\", *",
+    art.df$journalShort[each],"*, ",
+    art.df$year[each], ". \n ",
+    icon.btn.html$doi[1],art.df$doi[each],icon.btn.html$doi[2]))
   
   #if RG link available
   if (!is.na(art.df$rg[each])){
-    cat(paste0("[{{< ai researchgate-square title=\"ResearchGate\" >}}](", art.df$rg[each],")",
-             "{style=\"font-size:1.5em\"}  "))
+    cat(paste0(icon.btn.html$rg[1], art.df$rg[each],icon.btn.html$rg[2]))
   }
   
   #if arxiv link available
   if (!is.na(art.df$arxiv[each])){
-    cat(paste0("[{{< ai arxiv-square title=\"arXiv\" >}}](", art.df$arxiv[each],")",
-             "{style=\"font-size:1.5em\"}  "))
+    cat(paste0(icon.btn.html$arxiv[1], art.df$arxiv[each],
+               icon.btn.html$arxiv[2]))
   }
   
   #if url link available
   if (!is.na(art.df$url[each])){
-    cat(paste0("[{{< fa globe title=\"Other Sources\" >}}](", art.df$url[each],")",
-             "{style=\"font-size:1.5em\"}  "))
+    cat(paste0(icon.btn.html$url[1], art.df$url[each],icon.btn.html$url[2]#,
+            # "\n", "::: \n", #close g-col-10
+             #"::: \n" #close grid-1 
+             )) 
+  } else { 
+    #cat(paste0("\n", "::: \n", #close g-col-10
+    #           "::: \n" #close grid
+    #           )) 
   }
   
-  cat("\n<br><br>\n")
+  cat(paste0("\n", "::: \n")) #close g-col-10
+
+  #dimensions and altmetrics
+  cat(paste0("::: {.g-col-2 .vh-start }\n", #g-col-2
+             metrics.html$dimensions[1], art.df$doi[each], 
+             metrics.html$dimensions[2],
+             metrics.html$altmetric[1], art.df$doi[each], 
+             metrics.html$altmetric[2], 
+             "::: \n", #close g-col-2
+             "::: \n"))  #close grid
+  
+  cat("\n<p><br></p>\n")
 }
 ```
 
@@ -150,7 +198,7 @@ for (each in 1:nrow(conf.df)) {
              \"",conf.df$title[each],"\", *",
              conf.df$journalShort[each],"*, in: ",
              conf.df$Country[each], ", ",
-             conf.df$year[each], ". \n<br> Find it here: "))
+             conf.df$year[each], ". \n<p><br></p> Find it here: "))
   
   #if doi link available
   if (!is.na(conf.df$doi[each])){
@@ -176,7 +224,7 @@ for (each in 1:nrow(conf.df)) {
              "{style=\"font-size:1.5em\"}  "))
   }
   
-  cat("\n<br><br>")
+  cat("\n<p><br><br></p>")
 }
 
 ```
