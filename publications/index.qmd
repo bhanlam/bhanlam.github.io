@@ -8,7 +8,6 @@ format:
 
 ## Featured Publications
 
-
 ```{r, results='asis', echo=FALSE, warning=FALSE, message=FALSE}
 
 library(tidyverse)
@@ -24,19 +23,23 @@ doi.list<-c("10.1038/s41598-020-66563-z",
 icon.btn.html<-data.frame(
   doi=c("\n [ <span style=\"font-size: 1.5em; color: #3459e6;\">
   {{< ai doi-square title=\"DOI\" >}} </span> 
-  <span style=\"font-size: 1.25em;\"> DOI </span> ](https://doi.org/", 
+  <span style=\"font-size: 1em;\"> DOI </span> ](https://doi.org/", 
   "){.btn .btn-secondary role=\"button\"}  "),
   rg=c("[ <span style=\"font-size: 1.5em; color: #3459e6;\">
   {{< ai researchgate-square title=\"ResearchGate\" >}} </span> 
-  <span style=\"font-size: 1.25em;\"> ResearchGate </span> ](",
+  <span style=\"font-size: 1em;\"> ResearchGate </span> ](",
   "){.btn .btn-secondary role=\"button\"}  "),
   arxiv=c("[ <span style=\"font-size: 1.5em; color: #3459e6;\">
   {{< ai arxiv-square title=\"arXiv\" >}} </span> 
-  <span style=\"font-size: 1.25em;\"> arXiv </span> ](",
+  <span style=\"font-size: 1em;\"> arXiv </span> ](",
+  "){.btn .btn-secondary role=\"button\"}  "),
+  psyarxiv=c("[ <span style=\"font-size: 1.5em; color: #3459e6;\">
+  {{< ai psyarxiv-square title=\"PsyArXiv\" >}} </span> 
+  <span style=\"font-size: 1em;\"> PsyArXiv </span> ](",
   "){.btn .btn-secondary role=\"button\"}  "),
   url=c("[ <span style=\"font-size: 1.5em; color: #3459e6;\">
-  {{< fa globe title=\"Other Sources\" >}} </span> 
-  <span style=\"font-size: 1.25em;\"> Other URL </span> ](",
+  {{< fa globe title=\"Other URI\" >}} </span> 
+  <span style=\"font-size: 1em;\"> Other URI </span> ](",
   "){.btn .btn-secondary role=\"button\"}  "))
 
 metrics.html<-data.frame(
@@ -51,6 +54,7 @@ metrics.html<-data.frame(
   )
 )
 
+#for each featured article doi
 for (doi.ind in 1:length(doi.list)) {
   each<-which(pub.df$doi==doi.list[doi.ind])
   
@@ -66,7 +70,8 @@ for (doi.ind in 1:length(doi.list)) {
 
  #if RG link available
   if (!is.na(pub.df$rg[each])){
-    cat(paste0(icon.btn.html$rg[1],pub.df$rg[each],icon.btn.html$rg[2]))
+    cat(paste0(icon.btn.html$rg[1],pub.df$rg[each],
+               icon.btn.html$rg[2]))
   }
   
   #if arxiv link available
@@ -75,10 +80,16 @@ for (doi.ind in 1:length(doi.list)) {
                icon.btn.html$arxiv[2]))
   }
   
+  #if psyarxiv link available
+  if (!is.na(pub.df$psyarxiv[each])){
+    cat(paste0(icon.btn.html$psyarxiv[1], pub.df$psyarxiv[each], 
+               icon.btn.html$psyarxiv[2]))
+  }
+  
   #if url link available
   if (!is.na(pub.df$url[each])){
-    cat(paste0(icon.btn.html$globe[1], pub.df$url[each],
-               icon.btn.html$globe[2]))
+    cat(paste0(icon.btn.html$url[1], pub.df$url[each],
+               icon.btn.html$url[2]))
   }
   
   cat(paste0("\n", "::: \n")) #close g-col-10-1
@@ -110,9 +121,7 @@ for (doi.ind in 1:length(doi.list)) {
   if (doi.list[doi.ind]=="10.1016/j.buildenv.2021.107928"){
     cat(paste0("::: grid \n", #grid-2
                "::: {.g-col-10 .vh-left .just-text} \n", #g-col-10-2
-               "> Elsevier Building and Environment journal, 
-               [invitation-based special initiative paper]
-               (https://doi.org/10.1016/j.buildenv.2015.08.012) \n",
+               "> Elsevier Building and Environment journal, [invitation-based special initiative paper](https://doi.org/10.1016/j.buildenv.2015.08.012) \n",
                "::: \n", #close g-col-10-2 
                "::: \n")) #close grid-2 
   }
@@ -131,7 +140,7 @@ for (doi.ind in 1:length(doi.list)) {
 
 library(tidyverse)
 
-cat("### Journal Articles \n<p><br></P>")
+cat("### Journal Articles \n<p><br></p>")
 
 #articles only
 art.df<-pub.df %>%
@@ -140,7 +149,7 @@ art.df<-pub.df %>%
 for (each in 1:nrow(art.df)) {
   cat(paste0(
     "::: grid \n", #grid-1
-    "::: {.g-col-10 .vh-left .just-text} \n",
+    "::: {.g-col-10 .vh-left .just-text} \n", #g-col-10
     art.df$authors[each],
     ", \"",art.df$title[each], "\", *",
     art.df$journalShort[each],"*, ",
@@ -158,16 +167,17 @@ for (each in 1:nrow(art.df)) {
                icon.btn.html$arxiv[2]))
   }
   
+  #if psyarxiv link available
+  if (!is.na(art.df$psyarxiv[each])){
+    cat(paste0(icon.btn.html$psyarxiv[1], art.df$psyarxiv[each], 
+               icon.btn.html$psyarxiv[2]))
+  }
+  
   #if url link available
   if (!is.na(art.df$url[each])){
-    cat(paste0(icon.btn.html$url[1], art.df$url[each],icon.btn.html$url[2]#,
-            # "\n", "::: \n", #close g-col-10
-             #"::: \n" #close grid-1 
-             )) 
-  } else { 
-    #cat(paste0("\n", "::: \n", #close g-col-10
-    #           "::: \n" #close grid
-    #           )) 
+    cat(paste0(
+      icon.btn.html$url[1], 
+      art.df$url[each],icon.btn.html$url[2])) 
   }
   
   cat(paste0("\n", "::: \n")) #close g-col-10
@@ -179,50 +189,99 @@ for (each in 1:nrow(art.df)) {
              metrics.html$altmetric[1], art.df$doi[each], 
              metrics.html$altmetric[2], 
              "::: \n", #close g-col-2
-             "::: \n"))  #close grid
+             "::: \n" #close grid
+             ))  
   
-  cat("\n<p><br></p>\n")
+  cat("\n<p><br><br></p>\n")
 }
 ```
 
 ```{r, results='asis', echo=FALSE, warning=FALSE, message=FALSE}
 
-cat("### Conference proceedings \n<br>")
+
+#cat("::: {.g-col-12 .vh-left .just-text} \n",
+#    "### Conference proceedings \n<p><br></p>\n",
+#    ":::\n<p><br></p>\n")
+
+cat("### Conference proceedings \n<p><br></p>\n")
 
 #conferences only
 conf.df<-pub.df %>%
   filter(type=="Proceedings Paper")
 
 for (each in 1:nrow(conf.df)) {
-  cat(paste0(conf.df$authors[each],",
-             \"",conf.df$title[each],"\", *",
-             conf.df$journalShort[each],"*, in: ",
-             conf.df$Country[each], ", ",
-             conf.df$year[each], ". \n<p><br></p> Find it here: "))
+  cat(paste0(
+    "::: grid \n", #grid-1
+    "::: {.g-col-10 .vh-left .just-text} \n", #g-col-10
+    conf.df$authors[each],", \"",
+    conf.df$title[each],"\", *",
+    conf.df$journalShort[each],"*, in: ",
+    conf.df$Country[each], ", ",
+    conf.df$year[each], ". \n"
+    #"::: \n" #close g-col-10
+    ))
   
-  #if doi link available
+  #if DOI link available
   if (!is.na(conf.df$doi[each])){
-    cat(paste0("[{{< ai doi-square title=\"DOI\" >}}](https://doi.org/",conf.df$doi[each],")",
-             "{style=\"font-size:1.5em\"}  "))
+    cat(paste0(icon.btn.html$doi[1],conf.df$doi[each],
+           icon.btn.html$doi[2]))
   }
   
   #if RG link available
   if (!is.na(conf.df$rg[each])){
-    cat(paste0("[{{< ai researchgate-square title=\"ResearchGate\" >}}](", conf.df$rg[each],")",
-             "{style=\"font-size:1.5em\"}  "))
+    cat(paste0(icon.btn.html$rg[1],
+               conf.df$rg[each],
+               icon.btn.html$rg[2]))
   }
   
   #if arxiv link available
   if (!is.na(conf.df$arxiv[each])){
-    cat(paste0("[{{< ai arxiv-square title=\"arXiv\" >}}](", conf.df$arxiv[each],")",
-             "{style=\"font-size:1.5em\"}  "))
+    cat(paste0(icon.btn.html$arxiv[1], conf.df$arxiv[each],
+               icon.btn.html$arxiv[2]))
+  }
+  
+  #if psyarxiv link available
+  if (!is.na(conf.df$psyarxiv[each])){
+    cat(paste0(icon.btn.html$psyarxiv[1], conf.df$psyarxiv[each], 
+               icon.btn.html$psyarxiv[2]))
   }
   
   #if url link available
   if (!is.na(conf.df$url[each])){
-    cat(paste0("[{{< fa globe title=\"Other Sources\" >}}](", conf.df$url[each],")",
-             "{style=\"font-size:1.5em\"}  "))
+    cat(paste0(
+      icon.btn.html$url[1], 
+      art.df$url[each],icon.btn.html$url[2])) 
   }
+  
+  cat(paste0("\n", "::: \n")) #close g-col-10
+  
+  #dimensions and altmetrics
+  
+  #check for doi
+  cat(paste0("::: {.g-col-2 .vh-start }\n")) #open g-col-2
+  if (!is.na(conf.df$doi[each])){
+    cat(paste0(
+      metrics.html$dimensions[1], conf.df$doi[each], 
+      metrics.html$dimensions[2],
+      metrics.html$altmetric[1], conf.df$doi[each], 
+      metrics.html$altmetric[2]
+      ))
+  } else if (!is.na(conf.df$arxiv[each])) {
+    cat(paste0(
+      metrics.html$dimensions[1], 
+      gsub("^.*https://doi.org/", "", conf.df$arxiv[each]), 
+      metrics.html$dimensions[2],
+      metrics.html$altmetric[1],
+      gsub("^.*https://doi.org/", "", conf.df$arxiv[each]), 
+      metrics.html$altmetric[2]
+      ))
+  }
+  
+  cat(paste0(
+    "::: \n", #close g-col-2
+    "::: \n"  #close grid
+  ))
+  
   
   cat("\n<p><br><br></p>")
 }
