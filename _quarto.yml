@@ -4,6 +4,7 @@ project:
 website:
   title: "bhanlam"
   description: "Lam Bhan's personal website"
+  google-analytics: "G-TB18W3DWQJ"
   repo-url: https://github.com/bhanlam/bhanlam.github.io
   repo-actions: [edit, issue]
   twitter-card:
