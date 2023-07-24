@@ -13,7 +13,7 @@ format:
 library(tidyverse)
 
 #load tidied publication data
-pub.df<-read.csv("../data/mergedPubList_manual.csv") 
+pub.df<-read.csv("../data/20230724_mergedPubList_manual.csv") 
 pub.df<-pub.df %>%
   arrange(desc(year))
 
@@ -54,6 +54,14 @@ metrics.html<-data.frame(
   )
 )
 
+badges.html<-data.frame(
+  citations=c(
+    "<img alt=\"Static Badge\" src=\"https://img.shields.io/badge/Citations-",
+    "-brightgreen?logo=googlescholar\">"
+  )
+)
+
+
 #for each featured article doi
 for (doi.ind in 1:length(doi.list)) {
   each<-which(pub.df$doi==doi.list[doi.ind])
@@ -63,7 +71,10 @@ for (doi.ind in 1:length(doi.list)) {
            pub.df$authors[each],
            ", \"",pub.df$title[each], "\", *",
            pub.df$journalShort[each], "*, ",
-           pub.df$year[each], ". ",
+           pub.df$year[each], ". \n",
+           "\n", badges.html$citations[1],
+           pub.df$total.citations[each],
+           badges.html$citations[2],
            "\n", icon.btn.html$doi[1],
            pub.df$doi[each], 
            icon.btn.html$doi[2]))
@@ -154,6 +165,10 @@ for (each in 1:nrow(art.df)) {
     ", \"",art.df$title[each], "\", *",
     art.df$journalShort[each],"*, ",
     art.df$year[each], ". \n ",
+    "\n", badges.html$citations[1],
+    art.df$total.citations[each],
+    badges.html$citations[2],
+    "\n ",
     icon.btn.html$doi[1],art.df$doi[each],icon.btn.html$doi[2]))
   
   #if RG link available
@@ -217,7 +232,11 @@ for (each in 1:nrow(conf.df)) {
     conf.df$title[each],"\", *",
     conf.df$journalShort[each],"*, in: ",
     conf.df$Country[each], ", ",
-    conf.df$year[each], ". \n"
+    conf.df$year[each], ". \n",
+    "\n", badges.html$citations[1],
+    conf.df$total.citations[each],
+    badges.html$citations[2],"\n",
+    "\n"
     #"::: \n" #close g-col-10
     ))
   
