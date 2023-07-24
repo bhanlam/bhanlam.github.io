@@ -17,8 +17,9 @@ jobs:
         uses: quarto-dev/quarto-actions/setup@v2
         
       - name: Install libcurl4-openssl-dev
-        run: sudo apt-get update
-        run: sudo apt-get install libcurl4-openssl-dev
+        run: 
+          sudo apt-get update
+          sudo apt-get install libcurl4-openssl-dev
         
       - name: Install R
         uses: r-lib/actions/setup-r@v2
