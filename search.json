@@ -1,5 +1,12 @@
 [
   {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "About this site\n\n\n1 + 1\n\n[1] 2"
+  },
+  {
     "objectID": "publications/index.html",
     "href": "publications/index.html",
     "title": "bhanlam",
@@ -26,13 +33,6 @@
     "title": "bhanlam",
     "section": "Lam Bhan",
     "text": "Lam Bhan\nBEng, PhD   Research Assistant Professor   Nanyang Technological University"
-  },
-  {
-    "objectID": "about.html",
-    "href": "about.html",
-    "title": "About",
-    "section": "",
-    "text": "About this site\n\n\n1 + 1\n\n[1] 2"
   },
   {
     "objectID": "cv/index.html",
