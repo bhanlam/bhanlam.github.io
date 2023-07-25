@@ -57,12 +57,12 @@ Dr. Lam's dedication to the advancement of his field is evident through his invo
 
 #### **Editorial**
 
--   {{< fa circle-notch >}} **Guest Editor** \| **Journal of the Acoustical Society of America** \| 2023 - present
--   {{< fa circle-notch >}} **Guest Editor** \| **Sustainability** \| 2021 -- 2023
+-   {{< fa circle-notch >}} **Guest Editor** \| [**Journal of the Acoustical Society of America**](https://pubs.aip.org/asa/jasa/pages/cfp030223) \| 2023 - present
+-   {{< fa circle-notch >}} **Guest Editor** \| [**Sustainability**](https://www.mdpi.com/journal/sustainability/special_issues/Designing_Urban_Soundscapes) \| 2021 -- 2023
 
 #### **Peer review**
 
--   **Verified peer reviews**: [100](https://www.webofscience.com/wos/author/record/O-2911-2013)
+-   **Verified peer reviews**: [105](https://www.webofscience.com/wos/author/record/O-2911-2013)
 -   **Reviewer for**:
     -   IEEE/ACM T Audio Speech \| IEEE Signal Process. Let.
     -   Build. Environ. \| Appl. Acoust. \| J. Sound. Vib \| Mech. Syst. Signal Process. \| Digital Sig. Process. \| Sust. Cities Soc. \| Landsc. Urban Plan
@@ -87,6 +87,10 @@ Dr. Lam's dedication to the advancement of his field is evident through his invo
 -   {{< fa newspaper >}} [de Volkskrant](https://www.volkskrant.nl/wetenschap/raam-open-en-toch-geen-lawaai-nieuw-apparaat-schakelt-verkeersherrie-uit~b3422b04/?referrer=https%3A%2F%2Fnature.altmetric.com%2Fdetails%2F85494619%2Fnews)
 -   {{< fa globe >}} [IEEE Spectrum](https://spectrum.ieee.org/tech-talk/green-tech/buildings/canceling-street-noise-at-your-homes-window) \| 9 Jul 2020
 -   {{< fa globe >}} [New Scientist Magazine](https://www.newscientist.com/article/2248486-noise-cancelling-windows-halve-traffic-sounds-even-when-theyre-open/) \| 9 Jul 2020
+
+## Projects
+
+
 
 ## Collaborators
 

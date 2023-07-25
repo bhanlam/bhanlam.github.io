@@ -45,7 +45,15 @@ icon.btn.html<-data.frame(
   "){.btn .btn-secondary role=\"button\"}  "),
   url=c("[ <span style=\"font-size: 1.5em; color: #3459e6;\">
   {{< fa globe title=\"Other URI\" >}} </span> 
-  <span style=\"font-size: 1em;\"> Other URI </span> ](",
+  <span style=\"font-size: 1em;\"> URI </span> ](",
+  "){.btn .btn-secondary role=\"button\"}  "),
+  data=c("[ <span style=\"font-size: 1.5em; color: #3459e6;\">
+  {{< fa database title=\"Data\" >}} </span> 
+  <span style=\"font-size: 1em;\"> Data </span> ](",
+  "){.btn .btn-secondary role=\"button\"}  "),
+  code=c("[ <span style=\"font-size: 1.5em; color: #3459e6;\">
+  {{< fa code title=\"Code\" >}} </span> 
+  <span style=\"font-size: 1em;\"> Code </span> ](",
   "){.btn .btn-secondary role=\"button\"}  "))
 
 metrics.html<-data.frame(
@@ -125,6 +133,18 @@ for (doi.ind in 1:length(doi.list)) {
   if (!is.na(pub.df$url[each])){
     cat(paste0(icon.btn.html$url[1], pub.df$url[each],
                icon.btn.html$url[2]))
+  }
+  
+  #if data link available
+  if (!is.na(pub.df$data[each])){
+    cat(paste0(icon.btn.html$data[1], pub.df$data[each],
+               icon.btn.html$data[2]))
+  }
+  
+  #if code link available
+  if (!is.na(pub.df$code[each])){
+    cat(paste0(icon.btn.html$code[1], pub.df$code[each],
+               icon.btn.html$code[2]))
   }
   
   cat(paste0("\n", "::: \n")) #close g-col-10-1
