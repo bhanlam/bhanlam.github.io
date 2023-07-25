@@ -13,6 +13,7 @@ filters:
 ---
 
 [//]: # "launch terminal to publish: quarto publish gh-pages" 
+[//]: # "render pdf only: quarto render --to pdf"
 
 <!--# outer div -->
 

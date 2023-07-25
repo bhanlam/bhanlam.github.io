@@ -16,6 +16,7 @@ library(tidyverse)
 cit.color<-"steelblue"
 impfac.color<-"slateblue"
 citsco.color<-"tomato"
+status.color<-"palevioletred"
 
 #load tidied publication data
 pub.df<-read.csv("../data/20230724_mergedPubList_manual.csv") 
@@ -80,6 +81,10 @@ badges.html<-data.frame(
   citsco=c(
     "<img alt=\"Static Badge\" src=\"https://img.shields.io/badge/Cite%20Score-",
     paste0("-",citsco.color,"?logo=elsevier\">")
+    ),
+  status=c(
+    "<img alt=\"Static Badge\" src=\"https://img.shields.io/badge/Status-",
+    paste0("-",status.color,"\">")
     )
 )
 
@@ -220,8 +225,22 @@ for (each in 1:nrow(pp.df)) {
     #citation badge
     "\n", badges.html$citations[1],
     pp.df$total.citations[each],
-    badges.html$citations[2],
-    "\n ",
+    badges.html$citations[2]))
+  
+  #appl acoust preprint
+  if (pp.df$doi[each] == "10.48550/arXiv.2307.03647"){
+    cat(paste0(" ", badges.html$status[1],
+               "Under%20Review", badges.html$status[2]))
+  }
+  
+  #internoise paper
+  if (pp.df$doi[each] == "10.48550/arXiv.2306.01425"){
+    cat(paste0(" ", badges.html$status[1],
+               "Accepted%20in%20inter.noise%202023", badges.html$status[2]))
+  }
+  
+  #DOI
+  cat(paste0("\n ",
     icon.btn.html$doi[1],
     pp.df$doi[each],
     icon.btn.html$doi[2]))
