@@ -199,6 +199,85 @@ for (doi.ind in 1:length(doi.list)) {
 
 ```
 
+## Preprints
+
+```{r, results='asis', echo=FALSE, warning=FALSE, message=FALSE}
+
+library(tidyverse)
+
+#preprints only
+pp.df<-pub.df %>%
+  filter(type=="Preprint")
+
+for (each in 1:nrow(pp.df)) {
+  cat(paste0(
+    "::: grid \n", #grid-1
+    "::: {.g-col-10 .vh-left .just-text} \n", #g-col-10
+    pp.df$authors[each],
+    ", \"",pp.df$title[each], "\", *",
+    pp.df$journalShort[each],"*, ",
+    pp.df$year[each], ". \n ",
+    #citation badge
+    "\n", badges.html$citations[1],
+    pp.df$total.citations[each],
+    badges.html$citations[2],
+    "\n ",
+    icon.btn.html$doi[1],
+    pp.df$doi[each],
+    icon.btn.html$doi[2]))
+  
+  #if RG link available
+  if (!is.na(pp.df$rg[each])){
+    cat(paste0(icon.btn.html$rg[1], pp.df$rg[each],icon.btn.html$rg[2]))
+  }
+  
+  #if arxiv link available
+  if (!is.na(pp.df$arxiv[each])){
+    cat(paste0(icon.btn.html$arxiv[1], pp.df$arxiv[each],
+               icon.btn.html$arxiv[2]))
+  }
+  
+  #if psyarxiv link available
+  if (!is.na(pp.df$psyarxiv[each])){
+    cat(paste0(icon.btn.html$psyarxiv[1], pp.df$psyarxiv[each], 
+               icon.btn.html$psyarxiv[2]))
+  }
+  
+  #if url link available
+  if (!is.na(pp.df$url[each])){
+    cat(paste0(
+      icon.btn.html$url[1], 
+      pp.df$url[each],icon.btn.html$url[2])) 
+  }
+  
+  #if data link available
+  if (!is.na(pp.df$data[each])){
+    cat(paste0(icon.btn.html$data[1], pp.df$data[each],
+               icon.btn.html$data[2]))
+  }
+  
+  #if code link available
+  if (!is.na(pp.df$code[each])){
+    cat(paste0(icon.btn.html$code[1], pp.df$code[each],
+               icon.btn.html$code[2]))
+  }
+  
+  cat(paste0("\n", "::: \n")) #close g-col-10
+
+  #dimensions and altmetrics
+  cat(paste0("::: {.g-col-2 .vh-start }\n", #g-col-2
+             metrics.html$dimensions[1], pp.df$doi[each], 
+             metrics.html$dimensions[2],
+             metrics.html$altmetric[1], pp.df$doi[each], 
+             metrics.html$altmetric[2], 
+             "::: \n", #close g-col-2
+             "::: \n" #close grid
+             ))  
+  
+  cat("\n<p><br><br></p>\n")
+}
+```
+
 
 ## Full Publication List
 
@@ -258,6 +337,18 @@ for (each in 1:nrow(art.df)) {
     cat(paste0(
       icon.btn.html$url[1], 
       art.df$url[each],icon.btn.html$url[2])) 
+  }
+  
+  #if data link available
+  if (!is.na(art.df$data[each])){
+    cat(paste0(icon.btn.html$data[1], art.df$data[each],
+               icon.btn.html$data[2]))
+  }
+  
+  #if code link available
+  if (!is.na(art.df$code[each])){
+    cat(paste0(icon.btn.html$code[1], art.df$code[each],
+               icon.btn.html$code[2]))
   }
   
   cat(paste0("\n", "::: \n")) #close g-col-10
@@ -335,6 +426,18 @@ for (each in 1:nrow(conf.df)) {
     cat(paste0(
       icon.btn.html$url[1], 
       art.df$url[each],icon.btn.html$url[2])) 
+  }
+  
+  #if data link available
+  if (!is.na(conf.df$data[each])){
+    cat(paste0(icon.btn.html$data[1], conf.df$data[each],
+               icon.btn.html$data[2]))
+  }
+  
+  #if code link available
+  if (!is.na(conf.df$code[each])){
+    cat(paste0(icon.btn.html$code[1], conf.df$code[each],
+               icon.btn.html$code[2]))
   }
   
   cat(paste0("\n", "::: \n")) #close g-col-10
