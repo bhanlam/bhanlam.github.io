@@ -12,13 +12,19 @@ format:
 
 library(tidyverse)
 
+#badge colors
+cit.color<-"steelblue"
+impfac.color<-"slateblue"
+citsco.color<-"tomato"
+
 #load tidied publication data
 pub.df<-read.csv("../data/20230724_mergedPubList_manual.csv") 
 pub.df<-pub.df %>%
   arrange(desc(year))
 
 doi.list<-c("10.1038/s41598-020-66563-z",
-            "10.1016/j.buildenv.2021.107928")
+            "10.1016/j.buildenv.2021.107928",
+            "10.1016/j.scs.2023.104763")
 
 icon.btn.html<-data.frame(
   doi=c("\n [ <span style=\"font-size: 1.5em; color: #3459e6;\">
@@ -57,8 +63,16 @@ metrics.html<-data.frame(
 badges.html<-data.frame(
   citations=c(
     "<img alt=\"Static Badge\" src=\"https://img.shields.io/badge/Citations-",
-    "-brightgreen?logo=googlescholar\">"
-  )
+    paste0("-",cit.color,"?logo=googlescholar\">")
+  ),
+  impfac=c(
+    "<img alt=\"Static Badge\" src=\"https://img.shields.io/badge/Impact%20Factor-",
+    paste0("-",impfac.color,"\">")
+    ),
+  citsco=c(
+    "<img alt=\"Static Badge\" src=\"https://img.shields.io/badge/Cite%20Score-",
+    paste0("-",citsco.color,"?logo=elsevier\">")
+    )
 )
 
 
@@ -72,9 +86,19 @@ for (doi.ind in 1:length(doi.list)) {
            ", \"",pub.df$title[each], "\", *",
            pub.df$journalShort[each], "*, ",
            pub.df$year[each], ". \n",
+           #google citation badge
            "\n", badges.html$citations[1],
            pub.df$total.citations[each],
            badges.html$citations[2],
+           #impact factor badge
+           " ", badges.html$impfac[1],
+           pub.df$ImpactFactor[each],
+           badges.html$impfac[2],
+           #citescore badge
+           " ", badges.html$citsco[1],
+           pub.df$CiteScore[each],
+           badges.html$citsco[2],
+           #doi button
            "\n", icon.btn.html$doi[1],
            pub.df$doi[each], 
            icon.btn.html$doi[2]))
@@ -114,6 +138,7 @@ for (doi.ind in 1:length(doi.list)) {
              "::: \n", #close g-col-2-1
              "::: \n"))  #close grid-1
   
+  #custom quote for sci rep paper
   if (doi.list[doi.ind]=="10.1038/s41598-020-66563-z") {
     #sci rep paper
     cat(paste0("::: grid \n", #grid-2
@@ -129,10 +154,21 @@ for (doi.ind in 1:length(doi.list)) {
                "::: \n",#close g-col-2-2
                "::: \n")) #close grid-2 
   } 
+  
+  #custom quote for 10Q paper
   if (doi.list[doi.ind]=="10.1016/j.buildenv.2021.107928"){
     cat(paste0("::: grid \n", #grid-2
                "::: {.g-col-10 .vh-left .just-text} \n", #g-col-10-2
-               "> Elsevier Building and Environment journal, [invitation-based special initiative paper](https://doi.org/10.1016/j.buildenv.2015.08.012) \n",
+               "> Elsevier Building and Environment, [invitation-based special initiative paper](https://doi.org/10.1016/j.buildenv.2015.08.012) \n",
+               "::: \n", #close g-col-10-2 
+               "::: \n")) #close grid-2 
+  }
+  
+  #custom quote for SCS paper
+  if (doi.list[doi.ind]=="10.1016/j.scs.2023.104763"){
+    cat(paste0("::: grid \n", #grid-2
+               "::: {.g-col-10 .vh-left .just-text} \n", #g-col-10-2
+               "> Elsevier Sustainable Cities and Society Special Issue on [Paradigm Shift in Human-Urban-Building Interactions in Smart Cities](https://www.sciencedirect.com/journal/sustainable-cities-and-society/special-issue/109TMGMVN5L)  \n",
                "::: \n", #close g-col-10-2 
                "::: \n")) #close grid-2 
   }
@@ -165,9 +201,18 @@ for (each in 1:nrow(art.df)) {
     ", \"",art.df$title[each], "\", *",
     art.df$journalShort[each],"*, ",
     art.df$year[each], ". \n ",
+    #citation badge
     "\n", badges.html$citations[1],
     art.df$total.citations[each],
     badges.html$citations[2],
+    #impact factor badge
+     " ", badges.html$impfac[1],
+     art.df$ImpactFactor[each],
+     badges.html$impfac[2],
+     #citescore badge
+     " ", badges.html$citsco[1],
+     art.df$CiteScore[each],
+     badges.html$citsco[2],
     "\n ",
     icon.btn.html$doi[1],art.df$doi[each],icon.btn.html$doi[2]))
   
