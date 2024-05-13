@@ -44,10 +44,6 @@ format:
     max-width: 1920px
     css: styles.css
     toc: false
-  pdf:
-    documentclass: report
-    margin-left: 30mm
-    margin-right: 30mm
 
 editor: visual
 

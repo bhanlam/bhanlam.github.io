@@ -19,7 +19,7 @@ citsco.color<-"tomato"
 status.color<-"palevioletred"
 
 #load tidied publication data
-pub.df<-read.csv("../data/20230724_mergedPubList_manual.csv") 
+pub.df<-read.csv("../data/20240513_mergedPubList_manual.csv") 
 pub.df<-pub.df %>%
   arrange(desc(year))
 
@@ -214,6 +214,7 @@ library(tidyverse)
 pp.df<-pub.df %>%
   filter(type=="Preprint")
 
+if(nrow(pp.df)>0){
 for (each in 1:nrow(pp.df)) {
   cat(paste0(
     "::: grid \n", #grid-1
@@ -294,6 +295,7 @@ for (each in 1:nrow(pp.df)) {
              ))  
   
   cat("\n<p><br><br></p>\n")
+}
 }
 ```
 
@@ -406,7 +408,7 @@ for (each in 1:nrow(conf.df)) {
     conf.df$authors[each],", \"",
     conf.df$title[each],"\", *",
     conf.df$journalShort[each],"*, in: ",
-    conf.df$Country[each], ", ",
+    conf.df$country[each], ", ",
     conf.df$year[each], ". \n",
     "\n", badges.html$citations[1],
     conf.df$total.citations[each],

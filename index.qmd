@@ -44,7 +44,8 @@ All my Publications here: [{{< fa file-lines >}} Publications](./publications/in
 {{< fa bullhorn >}} **Call for papers!**
 ![](images/CALL FOR PAPERS.png){fig-align="center" width="250" .lightbox}
 
-{{< fa regular calendar-days >}} **Upcoming event:** [![](images/logo-in2023.svg){fig-align="center" width="250"}](https://internoise2023.org/) 
+{{< fa regular calendar-days >}} **Upcoming event:** 
+[![](images/WCS2024.jpg){fig-align="center" width="250"}](https://www.worldcitiessummit.com.sg/) 
 
 
 :::
