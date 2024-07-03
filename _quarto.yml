@@ -19,6 +19,8 @@ website:
         text: "{{< fa file-lines >}} Publications"
       - href: cv/index.qmd
         text: "{{< fa address-card >}} Vitae"
+      - href: datasets/index.qmd
+        text: "{{< fa database >}} Database"
     right:
       - icon: github
         href: https://github.com/bhanlam
@@ -27,7 +29,7 @@ website:
       - icon: twitter
         href: https://twitter.com/bhanlam
   page-footer:
-    left: "{{< fa copyright >}} 2023, Lam Bhan"
+    left: "{{< fa copyright >}} 2024, Lam Bhan"
     right:
       - icon: github
         href: https://github.com/bhanlam

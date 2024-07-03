@@ -9,13 +9,13 @@ format:
 ## {{< fa user-tie >}} Biography
 
 ::: just-text
-{{< fa quote-left >}} [**Dr. Bhan, Lam**](index.qmd) is a dedicated researcher and academic in the field of environmental noise control and soundscapes. He completed his B.Eng. (Hons.) and Ph.D. degrees at the School of Electrical and Electronic Engineering, Nanyang Technological University, Singapore, in 2013 and 2019, respectively. He was awarded the NTU Research Scholarship and EEE Graduate Award, which supported his Ph.D. studies under the guidance of Prof. Woon-Seng Gan. During his Ph.D., Dr. Lam was accepted as a visiting postgrad in the signal processing and control group at the Institute of Sound and Vibration Research, University of Southampton, UK, where he contributed significantly to formulating physical limits of active noise control of open apertures. 
+{{< fa quote-left >}} [**Dr. Bhan, Lam**](index.qmd) is a dedicated researcher and academic in the field of environmental noise control and soundscapes. He completed his B.Eng. (Hons.) and Ph.D. degrees at the School of Electrical and Electronic Engineering, Nanyang Technological University, Singapore, in 2013 and 2019, respectively. He was awarded the NTU Research Scholarship and EEE Graduate Award, which supported his Ph.D. studies under the guidance of Prof. Woon-Seng Gan. During his Ph.D., Dr. Lam was accepted as a visiting postgrad in the signal processing and control group at the Institute of Sound and Vibration Research, University of Southampton, UK, where he contributed significantly to formulating physical limits of active noise control of open apertures.
 
-Dr. Lam’s research focuses on acoustics, soundscape, and signal processing for active control. He has contributed to the field with more than [90](../publications/index.qmd) refereed journal articles and conference papers. Notably, his patented anti-noise windows (WO2022055432) was shown to significantly [reduce perceived annoyance and loudness](https://doi.org/10.48550/arXiv.2307.05533) of typical urban noise through open windows. This work was published in Nature Scientific Reports and was recognized as a top-100 paper in 2020. Most recently, his patent-pending AI-based soundscape augmentation system (WO-2023211385-A1) underwent successful field trials in a residential estate in collaboration with the Housing and Development Board of Singapore, effectively transforming a traffic-exposed site into an environment of comparable pleasantness to a shielded location. 
+Dr. Lam’s research focuses on acoustics, soundscape, and signal processing for active control. He has contributed to the field with more than [90](../publications/index.qmd) refereed journal articles and conference papers. Notably, his patented anti-noise windows (WO2022055432) was shown to significantly [reduce perceived annoyance and loudness](https://doi.org/10.48550/arXiv.2307.05533) of typical urban noise through open windows. This work was published in Nature Scientific Reports and was recognized as a top-100 paper in 2020. Most recently, his patent-pending AI-based soundscape augmentation system (WO-2023211385-A1) underwent successful field trials in a residential estate in collaboration with the Housing and Development Board of Singapore, effectively transforming a traffic-exposed site into an environment of comparable pleasantness to a shielded location.
 
 Beyond the key ANC and soundscape achievements, Dr. Lam has a diverse portfolio of engagements spanning private and public sectors, as well as international projects. Collaborating with two construction companies, he co-developed and field-tested a patent-pending portable anti-noise system (PCT/SG2024/050046) that significantly reduces low-frequency hum from gensets. He also partnered with Singapore General Hospital to assess sound perception among hospital occupants and analyzed soundscapes in neonatal intensive care units to mitigate noise impacts on neonates. Recently, he collaborated with the Home Team Science and Technology Agency and the Singapore Association for the Visually Handicapped to develop and validate spatial auditory cues for wayfinding without sight. Internationally, Dr. Lam is part of a University College London-led consortium developing and validating translation methodologies for cross-cultural and linguistic applications of the ISO 12913 standards series.
 
-Dr. Lam’s contributions and expertise have been recognized on numerous occasions. He had the honor of being an invited representative at the 2020 Global Young Scientist Summit, World Cities Summit 2024 Young Leader, and also served as an invited tutorial speaker at APSIPA ASC 2020. In 2021, he was appointed as a Research Assistant Professor at the School of Electrical and Electronic Engineering, NTU, Singapore. He was also invited to present his work internationally at renowned institutions including NASA Ames Research Centre, Chungnam National University, Architectural Institute of Korea, Korea Institute of Civil Engineering and Building Technology, Hyundai Motor Group Namyang R&D Center, IEEE Kansai Section at Kansai University, and Huawei Technologies Japan KK. 
+Dr. Lam’s contributions and expertise have been recognized on numerous occasions. He had the honor of being an invited representative at the 2020 Global Young Scientist Summit, World Cities Summit 2024 Young Leader, and also served as an invited tutorial speaker at APSIPA ASC 2020. In 2021, he was appointed as a Research Assistant Professor at the School of Electrical and Electronic Engineering, NTU, Singapore. He was also invited to present his work internationally at renowned institutions including NASA Ames Research Centre, Chungnam National University, Architectural Institute of Korea, Korea Institute of Civil Engineering and Building Technology, Hyundai Motor Group Namyang R&D Center, IEEE Kansai Section at Kansai University, and Huawei Technologies Japan KK.
 
 Dr. Lam’s dedication to the advancement of his field is evident through his involvement as a guest editor with the [Journal of the Acoustical Society of America](https://pubs.aip.org/asa/jasa/pages/cfp030223), [Sustainability](https://www.mdpi.com/journal/sustainability/special_issues/Designing_Urban_Soundscapes), and served as a special session co-chair in the 2022 IEEE International Conference on Acoustics, Speech and Signal Processing (ICASSP). He is currently in the National Mirror Committee of ISO TC43/SC1/WG54 on “Perceptual assessment of soundscape quality”, as well as an ambassador of East & South-East Asia Regional Chapter of Acoustical Society of America. {{< fa quote-right >}}
 :::
@@ -49,11 +49,11 @@ Dr. Lam’s dedication to the advancement of his field is evident through his in
 
 ## {{< fa id-card >}} Memberships
 
--   {{< fa circle-notch >}} **National Mirror Committee (ISO/TC43/SC1/WG54)** \| **Singapore Standards Council** \| 2022 -- present 
+-   {{< fa circle-notch >}} **National Mirror Committee (ISO/TC43/SC1/WG54)** \| **Singapore Standards Council** \| 2022 -- present
 
     Spearheaded and currently leading the involvement of Singapore in the development of the ISO 12913 series of standards on soundscape.
 
--   {{< fa circle-notch >}} **Member** \| **IEEE** \| 2018 -- present 
+-   {{< fa circle-notch >}} **Member** \| **IEEE** \| 2018 -- present
 
     Graduate student member in 2018 and subsequently a member in 2019 - present
 
@@ -93,8 +93,6 @@ Dr. Lam’s dedication to the advancement of his field is evident through his in
 -   {{< fa globe >}} [New Scientist Magazine](https://www.newscientist.com/article/2248486-noise-cancelling-windows-halve-traffic-sounds-even-when-theyre-open/) \| 9 Jul 2020
 
 ## Projects
-
-
 
 ## Collaborators
 

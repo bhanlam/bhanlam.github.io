@@ -1,0 +1,82 @@
+---
+title: ""
+page-layout: full
+format: 
+  html: 
+    toc: true
+---
+
+## Lion CIty Soundscapes
+
+```{r init, echo=FALSE, message=FALSE, warning=FALSE}
+library(leaflet)
+library(leaflet.extras)
+```
+
+```{r leafletmap, echo=FALSE, message=FALSE, warning=FALSE}
+
+df <- read.csv(file = "../data/lcs_meta_predictions.csv")
+
+#create list of icons to represent the PAQ quadrants
+iconSet <- iconList(
+        "F&E" = makeIcon("data/pin_vibrant.png", iconWidth = 32, iconHeight = 32),
+        "C&T" = makeIcon("data/pin_calm.png", iconWidth = 32, iconHeight = 32),
+        "B&L" = makeIcon("data/pin_boring.png", iconWidth = 32, iconHeight = 32),
+        "C&R" = makeIcon("data/pin_chaotic.png", iconWidth = 32, iconHeight = 32)
+)
+
+#generate leaflet map
+leaflet(df) |> 
+        addProviderTiles(providers$OpenStreetMap) |>
+        addMarkers(
+                data = df, 
+                layerId = paste0("marker", df$lcs_id), 
+                group = "Markers",
+                icon = iconSet[df$s5_type],
+                clusterOptions = markerClusterOptions(),
+                popup = ~paste0(
+                        "<h3 style='color: black'>",
+                        " <a href=\'",link_full_youtube,"\'>",
+                        lcs_description,"</a>",
+                        "</h3> ",
+                        "<b>Type:</b> ", s5_type, "<br> ",
+                        "<b>SPL:</b> ", 
+                        formatC(
+                                insitu_spl_1min_LR_eavg,
+                                digits=2,
+                                format = "f"
+                                ),
+                        " dB(A) <br> ",
+                        "<b>ISOPL:</b> ",
+                        formatC(
+                                isopl_1min,
+                                digits=2,
+                                format = "f"
+                                ),
+                        "<br> ",
+                        "<b>ISOEV:</b> ",
+                        formatC(
+                                isoev_1min,
+                                digits=2,
+                                format = "f"
+                                ), "<br> ",
+                        youtube_iframe
+                        ), 
+                popupOptions = c(maxWidth = 560)
+            ) |>
+        addLayersControl(overlayGroups = c("Markers")) |>
+        addLegend(
+                colors = c("#CE2E6C","#FFB5B5","#F0DECB","#504658"),
+                labels = c(
+                        "Full of Life & Exciting",
+                        "Calm & Tranquil",
+                        "Lifeless & Boring",
+                        "Chaotic & Restless"
+                        ),
+                group = "Markers",
+                title = "Site Category",
+                position = "bottomleft"
+        ) 
+
+```
+

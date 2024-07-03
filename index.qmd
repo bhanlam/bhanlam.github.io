@@ -8,12 +8,7 @@ format:
     toc: false 
 filters:
   - lightbox
-
-    
 ---
-
-[//]: # "launch terminal to publish: quarto publish gh-pages" 
-[//]: # "render pdf only: quarto render --to pdf"
 
 <!--# outer div -->
 
@@ -35,33 +30,24 @@ filters:
 
 > Intrigued about all things sound {{< fa volume-high >}} Currently engaged in soundscape research and developing active noise control systems for the betterment of urban liveability and sustainability {{< fa tree-city >}}.
 
-Check out my full CV here: [{{< fa address-card >}} CV](./cv/index.qmd){.btn .btn-secondary role="button"} <br>
-All my Publications here: [{{< fa file-lines >}} Publications](./publications/index.qmd){.btn .btn-secondary role="button"}
+Check out my full CV here: [{{< fa address-card >}} CV](./cv/index.qmd){.btn .btn-secondary role="button"} <br> All my Publications here: [{{< fa file-lines >}} Publications](./publications/index.qmd){.btn .btn-secondary role="button"}
 :::
 
 ::: {.g-col-4 .vh-center .center-text}
+{{< fa bullhorn >}} **Call for papers!** ![](images/CALL%20FOR%20PAPERS.png){.lightbox fig-align="center" width="250"}
 
-{{< fa bullhorn >}} **Call for papers!**
-![](images/CALL FOR PAPERS.png){fig-align="center" width="250" .lightbox}
-
-{{< fa regular calendar-days >}} **Upcoming event:** 
-[![](images/WCS2024.jpg){fig-align="center" width="250"}](https://www.worldcitiessummit.com.sg/) 
-
-
+{{< fa regular calendar-days >}} **Upcoming event:** [![](images/WCS2024.jpg){fig-align="center" width="250"}](https://www.worldcitiessummit.com.sg/)
 :::
 :::
-
 
 ::: center-text
-
 <br><br>
 
-### {{< fa file-lines >}} A Summary of Publication & Citation metrics 
+### {{< fa file-lines >}} A Summary of Publication & Citation metrics
 
 #### Citation Trend (Google Scholar)
 
-![](images/citeHistory.png){fig-align="center" .lightbox}
-
+![](images/citeHistory.png){.lightbox fig-align="center"}
 :::
 
 ::: content-block
@@ -69,16 +55,13 @@ All my Publications here: [{{< fa file-lines >}} Publications](./publications/in
 ::: {#citation-pic .feature}
 #### Citation breakdown per article (Google Scholar)
 
-![](images/citationsPerArticle.png){fig-align="center" .lightbox group="pub-metrics"}
+![](images/citationsPerArticle.png){.lightbox fig-align="center" group="pub-metrics"}
 :::
 
-::: {#citation-pic .feature}
+::: feature
 #### Journal Impact Factor Trend
 
-![](images/journalIF.png){fig-align="center" .lightbox group="pub-metrics"}
-
+![](images/journalIF.png){.lightbox fig-align="center" group="pub-metrics"}
 :::
-
 :::
-
 :::
