@@ -15,14 +15,14 @@ library(leaflet.extras)
 
 ```{r leafletmap, echo=FALSE, message=FALSE, warning=FALSE}
 
-df <- read.csv(file = "../data/lcs_meta_predictions.csv")
+load(file = "../data/lcs_meta_predictions.RData")
 
 #create list of icons to represent the PAQ quadrants
 iconSet <- iconList(
-        "F&E" = makeIcon("data/pin_vibrant.png", iconWidth = 32, iconHeight = 32),
-        "C&T" = makeIcon("data/pin_calm.png", iconWidth = 32, iconHeight = 32),
-        "B&L" = makeIcon("data/pin_boring.png", iconWidth = 32, iconHeight = 32),
-        "C&R" = makeIcon("data/pin_chaotic.png", iconWidth = 32, iconHeight = 32)
+        "F&E" = makeIcon("../data/icons/pin_vibrant.png", iconWidth = 32, iconHeight = 32),
+        "C&T" = makeIcon("../data/icons/pin_calm.png", iconWidth = 32, iconHeight = 32),
+        "B&L" = makeIcon("../data/icons/pin_boring.png", iconWidth = 32, iconHeight = 32),
+        "C&R" = makeIcon("../data/icons/pin_chaotic.png", iconWidth = 32, iconHeight = 32)
 )
 
 #generate leaflet map
