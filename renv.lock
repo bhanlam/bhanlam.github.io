@@ -1197,10 +1197,10 @@
     },
     "terra": {
       "Package": "terra",
-      "Version": "1.7-39",
+      "Version": "1.7-78",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "6037d18193ca3f16900646e773937094",
+      "Hash": "8f020def0792119cb98bd8f696dab22d",
       "Requirements": [
         "Rcpp"
       ]
