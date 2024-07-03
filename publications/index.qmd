@@ -299,9 +299,7 @@ for (each in 1:nrow(pp.df)) {
 }
 ```
 
-
 ## Full Publication List
-
 
 ```{r, results='asis', echo=FALSE, warning=FALSE, message=FALSE}
 
@@ -495,7 +493,10 @@ for (each in 1:nrow(conf.df)) {
 }
 
 ```
-[//]: # "altmetric script" 
+
+```{=html}
 <script type='text/javascript' src='https://d1bxh8uas1mnw7.cloudfront.net/assets/embed.js'></script>
-[//]: # "dimensions script" 
+```
+```{=html}
 <script async src="https://badge.dimensions.ai/badge.js" charset="utf-8"></script>
+```
