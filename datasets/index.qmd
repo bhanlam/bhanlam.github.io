@@ -11,8 +11,8 @@ format:
 > 
 
 ```{r init, echo=FALSE, message=FALSE, warning=FALSE}
-library(leaflet)
-library(leaflet.extras)
+if(!requireNamespace("pacman", quietly=TRUE)) install.packages("pacman")
+pacman::p_load(tidyverse, gstat, sp, sf, raster, leaflet, leaflet.extras, osmdata)
 ```
 
 ```{r leafletmap, echo=FALSE, message=FALSE, warning=FALSE}
@@ -21,15 +21,27 @@ load(file = "../data/lcs_meta_predictions.RData")
 
 #create list of icons to represent the PAQ quadrants
 iconSet <- iconList(
-        "F&E" = makeIcon("../data/icons/pin_vibrant.png", iconWidth = 32, iconHeight = 32),
-        "C&T" = makeIcon("../data/icons/pin_calm.png", iconWidth = 32, iconHeight = 32),
-        "B&L" = makeIcon("../data/icons/pin_boring.png", iconWidth = 32, iconHeight = 32),
-        "C&R" = makeIcon("../data/icons/pin_chaotic.png", iconWidth = 32, iconHeight = 32)
+        "F&E" = makeIcon(
+          "../data/icons/pin_vibrant.png", 
+          iconWidth = 32, iconHeight = 32
+          ),
+        "C&T" = makeIcon(
+          "../data/icons/pin_calm.png",
+          iconWidth = 32, iconHeight = 32
+          ),
+        "B&L" = makeIcon(
+          "../data/icons/pin_boring.png", 
+          iconWidth = 32, iconHeight = 32
+          ),
+        "C&R" = makeIcon(
+          "../data/icons/pin_chaotic.png", 
+          iconWidth = 32, iconHeight = 32
+          )
 )
 
 #generate leaflet map
-leaflet(df) |> 
-        addProviderTiles(providers$OpenStreetMap) |>
+lcsmap <- leaflet(df) |> 
+        addProviderTiles(providers$CartoDB.Positron) |>
         addMarkers(
                 data = df, 
                 layerId = paste0("marker", df$lcs_id), 
@@ -66,7 +78,6 @@ leaflet(df) |>
                         ), 
                 popupOptions = c(maxWidth = 560)
             ) |>
-        addLayersControl(overlayGroups = c("Markers")) |>
         addLegend(
                 colors = c("#CE2E6C","#FFB5B5","#F0DECB","#504658"),
                 labels = c(
@@ -78,7 +89,118 @@ leaflet(df) |>
                 group = "Markers",
                 title = "Site Category",
                 position = "bottomleft"
-        ) 
+        )
+```
 
+```{r, echo=FALSE, message=FALSE}
+#compute the isopl and isoev layers
+
+coordinates(df) <- ~longitude + latitude
+proj4string(df) <- CRS("+proj=longlat +datum=WGS84")
+
+# Create a grid for prediction with an extended bounding box to be bigger than 
+# singapore's openstreetmap bounding box
+margin <- 0.02  # margin to extend the bounding box (degrees)
+bbox <- getbb("Singapore")
+bbox[1, 1] <- bbox[1, 1] - margin*2
+bbox[1, 2] <- bbox[1, 2] + margin*5
+bbox[2, 1] <- bbox[2, 1] - margin*2
+bbox[2, 2] <- bbox[2, 2] + margin*2
+
+# Use spsample to create a larger grid
+grd <- as.data.frame(
+  spsample(as(extent(bbox), "SpatialPolygons"), 
+           "regular", n = 100000)
+  )
+coordinates(grd) <- ~x1 + x2
+gridded(grd) <- TRUE
+proj4string(grd) <- CRS("+proj=longlat +datum=WGS84")
+
+# Perform IDW interpolation
+idw_isopl <- idw(formula = isopl_1min ~ 1, locations = df, newdata = grd)
+idw_isoev <- idw(formula = isoev_1min ~ 1, locations = df, newdata = grd)
+
+# Convert IDW output to raster using only the predicted values
+r_isopl <- rasterFromXYZ(
+        as.data.frame(idw_isopl)[, c("x1", "x2", "var1.pred")], 
+        crs = CRS("+proj=longlat +datum=WGS84")
+        )
+r_isoev <- rasterFromXYZ(
+        as.data.frame(idw_isoev)[, c("x1", "x2", "var1.pred")], 
+        crs = CRS("+proj=longlat +datum=WGS84")
+        )
+
+# Get Singapore boundaries from OpenStreetMap using osmdata
+singapore_query <- opq(bbox = c(103.6, 1.2, 104.0, 1.5)) |>
+  add_osm_feature(key = 'boundary', value = 'administrative') |>
+  add_osm_feature(key = 'admin_level', value = '2') |>
+  add_osm_feature(key = 'name', value = 'Singapore')
+singapore_data <- osmdata_sf(singapore_query)
+
+# Ensure Singapore boundaries are correctly obtained
+if (length(singapore_data$osm_multipolygons) > 0) {
+  # Filter out polygons beyond a certain longitude
+  singapore <- singapore_data$osm_multipolygons
+  # Transform Singapore boundaries to the same CRS as the raster
+  singapore <- st_transform(singapore, crs(r_isopl))
+} else {
+  stop("Failed to obtain Singapore boundaries from OpenStreetMap.")
+}
+
+#mask cannot handle multipolygons, dissolve first
+singapore_dissolved <- st_union(singapore)
+r_isopl_cropped <- mask(r_isopl, as(singapore_dissolved, "Spatial"))
+r_isoev_cropped <- mask(r_isoev, as(singapore_dissolved, "Spatial"))
+
+# Define color palette
+pal_isopl <- colorNumeric(
+        "RdYlBu", 
+        values(r_isopl), 
+        na.color = "transparent"
+        )
+pal_isoev <- colorNumeric(
+        "PRGn",
+        values(r_isoev), 
+        na.color = "transparent"
+        )
+
+# Convert raster to SpatialPolygonsDataFrame for leaflet
+r_isopl_spdf <- rasterToPolygons(r_isopl_cropped, dissolve = TRUE)
+r_isoev_spdf <- rasterToPolygons(r_isoev_cropped, dissolve = TRUE)
+
+lcsmap <- lcsmap |> 
+        #addProviderTiles(providers$CartoDB.DarkMatter) |>
+        addPolygons(
+                group = "ISO Pleasantness",
+                data = r_isopl_spdf, 
+                fillColor = ~pal_isopl(var1.pred), 
+                fillOpacity = 0.5, 
+                weight = 0
+                ) |>
+        addLegend(
+                pal = pal_isopl,
+                values = values(r_isopl),
+                title = "ISOPL",
+                position = "bottomleft"
+                ) |>
+        addPolygons(
+                group = "ISO Eventfulness",
+                data = r_isoev_spdf, 
+                fillColor = ~pal_isoev(var1.pred), 
+                fillOpacity = 0.5, 
+                weight = 0
+                ) |>
+        addLegend(
+                pal = pal_isoev,
+                values = values(r_isoev),
+                title = "ISOEV",
+                position = "bottomleft"
+                ) |>
+        addLayersControl(overlayGroups = c(
+                "Markers",
+                "ISO Pleasantness",
+                "ISO Eventfulness"
+                ))
+lcsmap
 ```
 
