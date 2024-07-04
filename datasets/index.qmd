@@ -214,6 +214,7 @@ lcsmap <- lcsmap |>
 ```
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
-lcsmap
+lcsmap |>
+  setView(103.8, 1.34, zoom = 11)
 ```
 
