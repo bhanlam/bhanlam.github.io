@@ -8,8 +8,6 @@ format:
 
 ## Lion City Soundscapes
 
-> 
-
 ```{r init, echo=FALSE, message=FALSE, warning=FALSE}
 if(!requireNamespace("pacman", quietly=TRUE)) install.packages("pacman")
 pacman::p_load(tidyverse, gstat, sp, sf, raster, leaflet, leaflet.extras, osmdata)
@@ -218,3 +216,4 @@ lcsmap |>
   setView(103.8, 1.34, zoom = 11)
 ```
 
+This is a rebuild of the "[Lion CIty Soundscapes](https://doi.org/10.21979/N9/AVHSBX)" dataset's [original visualisation](https://github.com/ntudsp/lion-city-soundscapes-visualisation). This leaflet map contains additional ISO Pleasantness and ISO Eventfulness map layers. For more information: follow the hyperlinks to the associated publications detailing the [site selection method](https://doi.org/10.3390/su14127485) and the [recording and excerpt methodology](https://doi.org/10.1121/10.0025830).
