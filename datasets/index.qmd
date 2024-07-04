@@ -92,7 +92,7 @@ lcsmap <- leaflet(df) |>
         )
 ```
 
-```{r, echo=FALSE, message=FALSE, warning=FALSE}
+```{r, echo=FALSE, message=FALSE, warning=FALSE, results = FALSE}
 #compute the isopl and isoev layers
 
 coordinates(df) <- ~longitude + latitude
@@ -127,7 +127,8 @@ idw_isoev <- idw(
   formula = isoev_1min ~ 1, 
   locations = df, 
   newdata = grd,
-  debug.level = 0)
+  debug.level = 0
+  )
 
 # Convert IDW output to raster using only the predicted values
 r_isopl <- rasterFromXYZ(
@@ -210,6 +211,9 @@ lcsmap <- lcsmap |>
                 "ISO Pleasantness",
                 "ISO Eventfulness"
                 ))
+```
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
 lcsmap
 ```
 
