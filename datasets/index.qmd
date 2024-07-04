@@ -92,7 +92,7 @@ lcsmap <- leaflet(df) |>
         )
 ```
 
-```{r, echo=FALSE, message=FALSE}
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
 #compute the isopl and isoev layers
 
 coordinates(df) <- ~longitude + latitude
@@ -117,8 +117,17 @@ gridded(grd) <- TRUE
 proj4string(grd) <- CRS("+proj=longlat +datum=WGS84")
 
 # Perform IDW interpolation
-idw_isopl <- idw(formula = isopl_1min ~ 1, locations = df, newdata = grd)
-idw_isoev <- idw(formula = isoev_1min ~ 1, locations = df, newdata = grd)
+idw_isopl <- idw(
+  formula = isopl_1min ~ 1, 
+  locations = df, 
+  newdata = grd,
+  debug.level = 0
+  )
+idw_isoev <- idw(
+  formula = isoev_1min ~ 1, 
+  locations = df, 
+  newdata = grd,
+  debug.level = 0)
 
 # Convert IDW output to raster using only the predicted values
 r_isopl <- rasterFromXYZ(
