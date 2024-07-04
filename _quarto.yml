@@ -20,7 +20,7 @@ website:
       - href: cv/index.qmd
         text: "{{< fa address-card >}} Vitae"
       - href: datasets/index.qmd
-        text: "{{< fa database >}} Databsets"
+        text: "{{< fa database >}} Datasets"
     right:
       - icon: github
         href: https://github.com/bhanlam
