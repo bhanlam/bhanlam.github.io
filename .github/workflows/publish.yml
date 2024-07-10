@@ -29,7 +29,8 @@ jobs:
             libfribidi-dev \
             libfreetype6-dev \
             libprotobuf-dev \
-            protobuf-compiler
+            protobuf-compiler \
+            libjq-dev 
         
       - name: Install R
         uses: r-lib/actions/setup-r@v2
