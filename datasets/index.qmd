@@ -108,9 +108,12 @@ location = window.location.pathname;
 path = location.substring(0, location.lastIndexOf("/"));
 
 // Load the color mapping data
-isoplColors = await d3.json(`${path}/data/isopl_colors.json`);
-isoevColors = await d3.json(`${path}/data/isoev_colors.json`);
-
+try {
+  isoplColors = await d3.json(`${path}/data/isopl_colors.json`);
+  isoevColors = await d3.json(`${path}/data/isoev_colors.json`);
+} catch (error) {
+    "Failed"
+}
 // Create color mapping functions
 function createColorMap(data) {
   const colorMap = new Map(data.map(d => [d.value, d.color]));
