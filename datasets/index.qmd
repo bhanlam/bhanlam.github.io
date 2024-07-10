@@ -3,7 +3,7 @@ title: ""
 page-layout: full
 format: 
   html: 
-    toc: true
+    toc: false
 ---
 
 ## 🇸🇬 Lion City Soundscapes
@@ -216,6 +216,8 @@ lcsmap |>
   setView(103.8, 1.34, zoom = 11)
 ```
 
-The "[Lion CIty Soundscapes](https://doi.org/10.21979/N9/AVHSBX)" dataset consists of audiovisual recordings from 62 locations in Singapore. The locations are categorised perceptually into "[Full of Life & Exciting]{style="color: #CE2E6C"}", "[Calm & Tranquil]{style="color: #FFB5B5"}", "[Lifeless & Boring]{style="color: #F0DECB"}", and "[Chaotic & Restless]{style="color: #504658"}". In addition to the markers, this leaflet map contains ISO Pleasantness and ISO Eventfulness (ISO 12913-3) map layers computed from binaural recordings at each site.
+-   {{< fa video >}} The "[Lion CIty Soundscapes](https://doi.org/10.21979/N9/AVHSBX)" dataset consists of 62 360° audiovisual recordings ({{< fa brands youtube >}}) to characterise the soundscape in Singapore. The locations represent perceptual dimensions of "[Full of Life & Exciting]{style="color: #CE2E6C"}", "[Calm & Tranquil]{style="color: #FFB5B5"}", "[Lifeless & Boring]{style="color: #F0DECB"}", and "[Chaotic & Restless]{style="color: #504658"}".
 
-For more information: follow the hyperlinks to the associated publications detailing the [site selection method](https://doi.org/10.3390/su14127485) and the [recording and excerpting methodology](https://doi.org/10.1121/10.0025830). This is an enhancement of the [original visualisation](https://github.com/ntudsp/lion-city-soundscapes-visualisation).
+-   The ISO Pleasantness and ISO Eventfulness map layers computed from binaural recordings at each site represent the perceived affective quality of each site according to ISO 12913-3.
+
+-   For more information: follow the hyperlinks to the associated publications detailing the [site selection method](https://doi.org/10.3390/su14127485) and the [recording and excerpting methodology](https://doi.org/10.1121/10.0025830). This is an enhancement of the [original visualisation](https://github.com/ntudsp/lion-city-soundscapes-visualisation).
