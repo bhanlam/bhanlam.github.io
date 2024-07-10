@@ -111,6 +111,8 @@ path = location.substring(0, location.lastIndexOf("/"));
 isoplColors = await d3.json(`${path}/data/isopl_colors.json`);
 isoevColors = await d3.json(`${path}/data/isoev_colors.json`);
 
+path
+
 // Create color mapping functions
 function createColorMap(data) {
   const colorMap = new Map(data.map(d => [d.value, d.color]));
@@ -133,6 +135,7 @@ function getUniqueValues(geojson, property) {
 isoevGeoJson = await d3.json(`${path}/data/r_isoev.geojson`);
 isoplGeoJson = await d3.json(`${path}/data/r_isopl.geojson`);
 
+path
 path
 
 //isoplColors
@@ -176,6 +179,8 @@ map = {
         yield container;
         
         path
+        path
+        path
         
         // Initialize the map
         let map = L.map(container).setView([1.34,103.8], 11);
@@ -210,6 +215,9 @@ map = {
                 })
         };
         
+        path
+        path
+        path
         path
         
         // Add markers for each filtered site
