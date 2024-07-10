@@ -112,7 +112,8 @@ try {
   isoplColors = await d3.json(`${path}/data/isopl_colors.json`);
   isoevColors = await d3.json(`${path}/data/isoev_colors.json`);
 } catch (error) {
-    "Failed"
+    fail = "Failed";
+    fail
 }
 // Create color mapping functions
 function createColorMap(data) {
