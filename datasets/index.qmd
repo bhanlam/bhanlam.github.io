@@ -12,7 +12,7 @@ format:
 
 ```{r init, echo=FALSE, message=FALSE, warning=FALSE}
 if(!requireNamespace("pacman", quietly=TRUE)) install.packages("pacman")
-pacman::p_load(tidyverse, gstat, sp, sf, raster, leaflet, leaflet.extras, osmdata)
+pacman::p_load(tidyverse, gstat, sp, sf, raster, leaflet, leaflet.extras, osmdata, geojsonio)
 ```
 
 -   {{< fa video >}} The "[Lion CIty Soundscapes](https://doi.org/10.21979/N9/AVHSBX)" dataset consists of 62 360° audiovisual recordings to characterise the soundscape in Singapore. The locations represent perceptual dimensions of "[Full of Life & Exciting]{style="color: #CE2E6C"}", "[Calm & Tranquil]{style="color: #FFB5B5"}", "[Lifeless & Boring]{style="color: #F0DECB"}", and "[Chaotic & Restless]{style="color: #504658"}".
@@ -58,6 +58,38 @@ df_for_ojs <- df |>
 
 # Use ojs_define to send data to OJS
 ojs_define(lcs_data = df_for_ojs)
+
+# Read your GeoJSON files
+isoev_geojson_for_ojs <- geojsonio::geojson_read("../data/r_isoev.geojson")
+isopl_geojson_for_ojs <- geojsonio::geojson_read("../data/r_isopl.geojson")
+
+# Read your color JSON files
+isopl_colors_for_ojs <- jsonlite::read_json("../data/isopl_colors.json")
+isoev_colors_for_ojs <- jsonlite::read_json("../data/isoev_colors.json")
+
+# Pass the data to Observable
+ojs_define(isoevGeoJson = isoev_geojson_for_ojs)
+ojs_define(isoplGeoJson = isopl_geojson_for_ojs)
+ojs_define(isoplColors = isopl_colors_for_ojs)
+ojs_define(isoevColors = isoev_colors_for_ojs)
+
+# Function to encode image to base64
+encode_image <- function(path) {
+  raw_img <- readBin(path, "raw", file.info(path)$size)
+  paste0("data:image/png;base64,", base64enc::base64encode(raw_img))
+}
+
+# Encode your images
+calm_icon_for_ojs <- encode_image("../data/icons/pin_calm.png")
+chaotic_icon_for_ojs <- encode_image("../data/icons/pin_chaotic.png")
+vibrant_icon_for_ojs <- encode_image("../data/icons/pin_vibrant.png")
+monotonous_icon_for_ojs <- encode_image("../data/icons/pin_boring.png")
+
+# Pass to Observable
+ojs_define(calm_icon = calm_icon_for_ojs)
+ojs_define(chaotic_icon = chaotic_icon_for_ojs)
+ojs_define(vibrant_icon = vibrant_icon_for_ojs)
+ojs_define(monotonous_icon = monotonous_icon_for_ojs)
 ```
 
 ## Row {height="70"}
@@ -104,14 +136,12 @@ viewof sitecat_select = Inputs.checkbox(sitecat_options,
 ```{ojs}
 //| component: card
 
-location = window.location.pathname;
-path = location.substring(0, location.lastIndexOf("/"));
+//location = window.location.pathname;
+//path = location.substring(0, location.lastIndexOf("/"));
 
 // Load the color mapping data
-isoplColors = await d3.json(`isopl_colors.json`);
-isoevColors = await d3.json(`isoev_colors.json`);
-
-path
+//isoplColors = await d3.json(`isopl_colors.json`);
+//isoevColors = await d3.json(`isoev_colors.json`);
 
 // Create color mapping functions
 function createColorMap(data) {
@@ -132,11 +162,8 @@ function getUniqueValues(geojson, property) {
 }
 
 // Load GeoJson files
-isoevGeoJson = await d3.json(`r_isoev.geojson`);
-isoplGeoJson = await d3.json(`r_isopl.geojson`);
-
-path
-path
+//isoevGeoJson = await d3.json(`r_isoev.geojson`);
+//isoplGeoJson = await d3.json(`r_isopl.geojson`);
 
 //isoplColors
 // Load Leaflet library
@@ -178,10 +205,6 @@ map = {
         });
         yield container;
         
-        path
-        path
-        path
-        
         // Initialize the map
         let map = L.map(container).setView([1.34,103.8], 11);
         L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}@2x.png',
@@ -190,35 +213,30 @@ map = {
         // Define icons
         const iconSet = {
                 'Calm': L.icon({
-                        iconUrl: `pin_calm.png`,
+                        iconUrl: calm_icon,
                         iconSize: [32, 32],
                         iconAnchor: [16, 32],
                         popupAnchor: [1, -25]
                 }),
                 'Chaotic': L.icon({
-                        iconUrl: `pin_chaotic.png`,
+                        iconUrl: chaotic_icon,
                         iconSize: [32, 32],
                         iconAnchor: [16, 32],
                         popupAnchor: [1, -25]
                 }),
                 'Vibrant': L.icon({
-                        iconUrl: `pin_vibrant.png`,
+                        iconUrl: vibrant_icon,
                         iconSize: [32, 32],
                         iconAnchor: [16, 32],
                         popupAnchor: [1, -25]
                 }),
                 'Monotonous': L.icon({
-                        iconUrl: `pin_boring.png`,
+                        iconUrl: monotonous_icon,
                         iconSize: [32, 32],
                         iconAnchor: [16, 32],
                         popupAnchor: [1, -25]
                 })
         };
-        
-        path
-        path
-        path
-        path
         
         // Add markers for each filtered site
         const markers = L.layerGroup(filtered_sites.map(d => {
