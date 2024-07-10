@@ -108,8 +108,8 @@ location = window.location.pathname;
 path = location.substring(0, location.lastIndexOf("/"));
 
 // Load the color mapping data
-isoplColors = await d3.json(`${path}/data/isopl_colors.json`);
-isoevColors = await d3.json(`${path}/data/isoev_colors.json`);
+isoplColors = await d3.json(`isopl_colors.json`);
+isoevColors = await d3.json(`isoev_colors.json`);
 
 path
 
@@ -132,8 +132,8 @@ function getUniqueValues(geojson, property) {
 }
 
 // Load GeoJson files
-isoevGeoJson = await d3.json(`${path}/data/r_isoev.geojson`);
-isoplGeoJson = await d3.json(`${path}/data/r_isopl.geojson`);
+isoevGeoJson = await d3.json(`r_isoev.geojson`);
+isoplGeoJson = await d3.json(`r_isopl.geojson`);
 
 path
 path
@@ -190,25 +190,25 @@ map = {
         // Define icons
         const iconSet = {
                 'Calm': L.icon({
-                        iconUrl: `${path}/data/pin_calm.png`,
+                        iconUrl: `pin_calm.png`,
                         iconSize: [32, 32],
                         iconAnchor: [16, 32],
                         popupAnchor: [1, -25]
                 }),
                 'Chaotic': L.icon({
-                        iconUrl: `${path}/data/pin_chaotic.png`,
+                        iconUrl: `pin_chaotic.png`,
                         iconSize: [32, 32],
                         iconAnchor: [16, 32],
                         popupAnchor: [1, -25]
                 }),
                 'Vibrant': L.icon({
-                        iconUrl: `${path}/data/pin_vibrant.png`,
+                        iconUrl: `pin_vibrant.png`,
                         iconSize: [32, 32],
                         iconAnchor: [16, 32],
                         popupAnchor: [1, -25]
                 }),
                 'Monotonous': L.icon({
-                        iconUrl: `${path}/data/pin_boring.png`,
+                        iconUrl: `pin_boring.png`,
                         iconSize: [32, 32],
                         iconAnchor: [16, 32],
                         popupAnchor: [1, -25]
