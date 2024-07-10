@@ -54,3 +54,6 @@ execute:
 
 filters:
   - lightbox
+  
+resources: 
+  - "datasets/data/*.json"

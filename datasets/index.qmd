@@ -2,8 +2,10 @@
 title: ""
 page-layout: full
 format: 
-  html: 
-    toc: false
+  dashboard: 
+    orientation: rows
+    embed-resources: true
+    scrolling: true
 ---
 
 ## 🇸🇬 Lion City Soundscapes
@@ -13,211 +15,411 @@ if(!requireNamespace("pacman", quietly=TRUE)) install.packages("pacman")
 pacman::p_load(tidyverse, gstat, sp, sf, raster, leaflet, leaflet.extras, osmdata)
 ```
 
-```{r leafletmap, echo=FALSE, message=FALSE, warning=FALSE}
-
-load(file = "../data/lcs_meta_predictions.RData")
-
-#create list of icons to represent the PAQ quadrants
-iconSet <- iconList(
-        "F&E" = makeIcon(
-          "../data/icons/pin_vibrant.png", 
-          iconWidth = 32, iconHeight = 32
-          ),
-        "C&T" = makeIcon(
-          "../data/icons/pin_calm.png",
-          iconWidth = 32, iconHeight = 32
-          ),
-        "B&L" = makeIcon(
-          "../data/icons/pin_boring.png", 
-          iconWidth = 32, iconHeight = 32
-          ),
-        "C&R" = makeIcon(
-          "../data/icons/pin_chaotic.png", 
-          iconWidth = 32, iconHeight = 32
-          )
-)
-
-#generate leaflet map
-lcsmap <- leaflet(df) |> 
-        addProviderTiles(providers$CartoDB.Positron) |>
-        addMarkers(
-                data = df, 
-                layerId = paste0("marker", df$lcs_id), 
-                group = "Markers",
-                icon = iconSet[df$s5_type],
-                clusterOptions = markerClusterOptions(),
-                popup = ~paste0(
-                        "<h3 style='color: black'>",
-                        " <a href=\'",link_full_youtube,"\'>",
-                        lcs_description,"</a>",
-                        "</h3> ",
-                        "<b>Type:</b> ", s5_type, "<br> ",
-                        "<b>SPL:</b> ", 
-                        formatC(
-                                insitu_spl_1min_LR_eavg,
-                                digits=2,
-                                format = "f"
-                                ),
-                        " dB(A) <br> ",
-                        "<b>ISOPL:</b> ",
-                        formatC(
-                                isopl_1min,
-                                digits=2,
-                                format = "f"
-                                ),
-                        "<br> ",
-                        "<b>ISOEV:</b> ",
-                        formatC(
-                                isoev_1min,
-                                digits=2,
-                                format = "f"
-                                ), "<br> ",
-                        youtube_iframe
-                        ), 
-                popupOptions = c(maxWidth = 560)
-            ) |>
-        addLegend(
-                colors = c("#CE2E6C","#FFB5B5","#F0DECB","#504658"),
-                labels = c(
-                        "Full of Life & Exciting",
-                        "Calm & Tranquil",
-                        "Lifeless & Boring",
-                        "Chaotic & Restless"
-                        ),
-                group = "Markers",
-                title = "Site Category",
-                position = "bottomright"
-        )
-```
-
-```{r, echo=FALSE, message=FALSE, warning=FALSE, results = FALSE}
-#compute the isopl and isoev layers
-
-coordinates(df) <- ~longitude + latitude
-proj4string(df) <- CRS("+proj=longlat +datum=WGS84")
-
-# Create a grid for prediction with an extended bounding box to be bigger than 
-# singapore's openstreetmap bounding box
-margin <- 0.02  # margin to extend the bounding box (degrees)
-bbox <- getbb("Singapore")
-bbox[1, 1] <- bbox[1, 1] - margin*2
-bbox[1, 2] <- bbox[1, 2] + margin*5
-bbox[2, 1] <- bbox[2, 1] - margin*2
-bbox[2, 2] <- bbox[2, 2] + margin*2
-
-# Use spsample to create a larger grid
-grd <- as.data.frame(
-  spsample(as(extent(bbox), "SpatialPolygons"), 
-           "regular", n = 100000)
-  )
-coordinates(grd) <- ~x1 + x2
-gridded(grd) <- TRUE
-proj4string(grd) <- CRS("+proj=longlat +datum=WGS84")
-
-# Perform IDW interpolation
-idw_isopl <- idw(
-  formula = isopl_1min ~ 1, 
-  locations = df, 
-  newdata = grd,
-  debug.level = 0
-  )
-idw_isoev <- idw(
-  formula = isoev_1min ~ 1, 
-  locations = df, 
-  newdata = grd,
-  debug.level = 0
-  )
-
-# Convert IDW output to raster using only the predicted values
-r_isopl <- rasterFromXYZ(
-        as.data.frame(idw_isopl)[, c("x1", "x2", "var1.pred")], 
-        crs = CRS("+proj=longlat +datum=WGS84")
-        )
-r_isoev <- rasterFromXYZ(
-        as.data.frame(idw_isoev)[, c("x1", "x2", "var1.pred")], 
-        crs = CRS("+proj=longlat +datum=WGS84")
-        )
-
-# Get Singapore boundaries from OpenStreetMap using osmdata
-singapore_query <- opq(bbox = c(103.6, 1.2, 104.0, 1.5)) |>
-  add_osm_feature(key = 'boundary', value = 'administrative') |>
-  add_osm_feature(key = 'admin_level', value = '2') |>
-  add_osm_feature(key = 'name', value = 'Singapore')
-singapore_data <- osmdata_sf(singapore_query)
-
-# Ensure Singapore boundaries are correctly obtained
-if (length(singapore_data$osm_multipolygons) > 0) {
-  # Filter out polygons beyond a certain longitude
-  singapore <- singapore_data$osm_multipolygons
-  # Transform Singapore boundaries to the same CRS as the raster
-  singapore <- st_transform(singapore, crs(r_isopl))
-} else {
-  stop("Failed to obtain Singapore boundaries from OpenStreetMap.")
-}
-
-#mask cannot handle multipolygons, dissolve first
-singapore_dissolved <- st_union(singapore)
-r_isopl_cropped <- mask(r_isopl, as(singapore_dissolved, "Spatial"))
-r_isoev_cropped <- mask(r_isoev, as(singapore_dissolved, "Spatial"))
-
-# Define color palette
-pal_isopl <- colorNumeric(
-        "RdYlBu", 
-        values(r_isopl), 
-        na.color = "transparent"
-        )
-pal_isoev <- colorNumeric(
-        "PRGn",
-        values(r_isoev), 
-        na.color = "transparent"
-        )
-
-# Convert raster to SpatialPolygonsDataFrame for leaflet
-r_isopl_spdf <- rasterToPolygons(r_isopl_cropped, dissolve = TRUE)
-r_isoev_spdf <- rasterToPolygons(r_isoev_cropped, dissolve = TRUE)
-
-lcsmap <- lcsmap |> 
-        #addProviderTiles(providers$CartoDB.DarkMatter) |>
-        addPolygons(
-                group = "ISO Pleasantness",
-                data = r_isopl_spdf, 
-                fillColor = ~pal_isopl(var1.pred), 
-                fillOpacity = 0.5, 
-                weight = 0
-                ) |>
-        addLegend(
-                pal = pal_isopl,
-                values = values(r_isopl),
-                title = "ISOPL",
-                position = "bottomleft"
-                ) |>
-        addPolygons(
-                group = "ISO Eventfulness",
-                data = r_isoev_spdf, 
-                fillColor = ~pal_isoev(var1.pred), 
-                fillOpacity = 0.5, 
-                weight = 0
-                ) |>
-        addLegend(
-                pal = pal_isoev,
-                values = values(r_isoev),
-                title = "ISOEV",
-                position = "bottomleft"
-                ) |>
-        addLayersControl(overlayGroups = c(
-                "Markers",
-                "ISO Pleasantness",
-                "ISO Eventfulness"
-                ))
-```
-
-```{r, echo=FALSE, message=FALSE, warning=FALSE}
-lcsmap |>
-  setView(103.8, 1.34, zoom = 11)
-```
-
--   {{< fa video >}} The "[Lion CIty Soundscapes](https://doi.org/10.21979/N9/AVHSBX)" dataset consists of 62 360° audiovisual recordings ({{< fa brands youtube >}}) to characterise the soundscape in Singapore. The locations represent perceptual dimensions of "[Full of Life & Exciting]{style="color: #CE2E6C"}", "[Calm & Tranquil]{style="color: #FFB5B5"}", "[Lifeless & Boring]{style="color: #F0DECB"}", and "[Chaotic & Restless]{style="color: #504658"}".
+-   {{< fa video >}} The "[Lion CIty Soundscapes](https://doi.org/10.21979/N9/AVHSBX)" dataset consists of 62 360° audiovisual recordings to characterise the soundscape in Singapore. The locations represent perceptual dimensions of "[Full of Life & Exciting]{style="color: #CE2E6C"}", "[Calm & Tranquil]{style="color: #FFB5B5"}", "[Lifeless & Boring]{style="color: #F0DECB"}", and "[Chaotic & Restless]{style="color: #504658"}".
 
 -   The ISO Pleasantness and ISO Eventfulness map layers computed from binaural recordings at each site represent the perceived affective quality of each site according to ISO 12913-3.
 
 -   For more information: follow the hyperlinks to the associated publications detailing the [site selection method](https://doi.org/10.3390/su14127485) and the [recording and excerpting methodology](https://doi.org/10.1121/10.0025830). This is an enhancement of the [original visualisation](https://github.com/ntudsp/lion-city-soundscapes-visualisation).
+
+```{r, message=FALSE}
+
+load("../data/lcs_meta_predictions.RData")
+
+df_for_ojs <- df |>
+        dplyr::select(c(
+                lcs_id,lcs_description,latitude,longitude,
+                insitu_spl_full_LR_eavg,
+                youtube_iframe, link_full_youtube,
+                norm_isopl_1min,norm_isoev_1min,
+                isopl_1min, isoev_1min
+                        )) |>
+        dplyr::rename(
+                id = lcs_id,
+                desc = lcs_description,
+                lat = latitude,
+                lng = longitude,
+                isopl = isopl_1min,
+                isoev = isoev_1min,
+                isopl_norm = norm_isopl_1min,
+                isoev_norm = norm_isoev_1min,
+                spl = insitu_spl_full_LR_eavg,
+                yt_iframe = youtube_iframe,
+                yt_link = link_full_youtube
+        ) |>
+        #define actual site categories
+        dplyr::mutate(
+                sitecat=case_when(
+                isopl >= 0 & isoev >= 0 ~ "Vibrant",
+                isopl >= 0 & isoev < 0 ~ "Calm",
+                isopl < 0 & isoev >= 0 ~ "Chaotic",
+                isopl < 0 & isoev < 0 ~ "Monotonous"
+                ),
+                yt_iframe=gsub("\"","\'",x = yt_iframe))
+
+# Use ojs_define to send data to OJS
+ojs_define(lcs_data = df_for_ojs)
+```
+
+## Row {height="70"}
+
+```{ojs}
+//| output: false
+
+// Transposing the R data for use in OJS
+lcs_data_df = transpose(lcs_data)
+
+// Loading the D3 library or data manipulation and visualization
+d3 = require("d3@6")
+
+// Include FontAwesome for icons
+html`<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"`
+
+// Filtering earthquakes based on the selected criteria
+filtered_sites = {
+  return lcs_data_df.filter(d => 
+    //d.sitecat === sitecat_select // selected site
+    sitecat_select.includes(d.sitecat) // selected sites
+  );
+}
+
+```
+
+```{ojs}
+//| component: card
+<!-- //| title: Filter Sites -->
+
+// Define the selection options for site cat
+sitecat_options = ["Calm", "Chaotic", "Monotonous", "Vibrant"]
+
+// Create the site category input
+viewof sitecat_select = Inputs.checkbox(sitecat_options, 
+{value: ["Calm", "Chaotic", "Monotonous", "Vibrant"], label: "Site Type:"})
+
+```
+
+## Row {height="550"}
+
+### Column {width="850"}
+
+```{ojs}
+//| component: card
+
+location = window.location.pathname;
+path = location.substring(0, location.lastIndexOf("/"));
+
+// Load the color mapping data
+isoplColors = await d3.json(`${path}/data/isopl_colors.json`);
+isoevColors = await d3.json(`${path}/data/isoev_colors.json`);
+
+// Create color mapping functions
+function createColorMap(data) {
+  const colorMap = new Map(data.map(d => [d.value, d.color]));
+  return value => colorMap.get(value) || "transparent";
+}
+
+pal_isopl = createColorMap(isoplColors);
+pal_isoev = createColorMap(isoevColors);
+
+// Function to extract unique values from GeoJSON
+function getUniqueValues(geojson, property) {
+  const values = new Set();
+  geojson.features.forEach(feature => {
+    values.add(feature.properties[property]);
+  });
+  return Array.from(values);
+}
+
+// Load GeoJson files
+isoevGeoJson = await d3.json(`${path}/data/r_isoev.geojson`);
+isoplGeoJson = await d3.json(`${path}/data/r_isopl.geojson`);
+
+//isoplColors
+// Load Leaflet library
+L = require('leaflet@1.9.4')
+
+// Include Leaflet CSS and custom legend CSS
+html`<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />`
+
+html`
+<style>
+.info.legend {
+  line-height: 18px;
+  color: #555;
+  background: white;
+  background: rgba(255,255,255,0.8);
+  box-shadow: 0 0 15px rgba(0,0,0,0.2);
+  border-radius: 5px;
+  padding: 10px;
+}
+.info.legend i {
+  width: 18px;
+  height: 18px;
+  float: left;
+  margin-right: 8px;
+  opacity: 0.7;
+}
+</style>
+`
+
+// Create the map with filtered data
+map = {
+        // Set dimensions 
+        let width = 850; 
+        let height = width / 1.6; 
+
+        // Create the container for the map
+        let container = DOM.element('div', {
+                style: `width: ${width}px; height: ${height}px`
+        });
+        yield container;
+  
+        // Initialize the map
+        let map = L.map(container).setView([1.34,103.8], 11);
+        L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}@2x.png',
+                {attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a>contributors'}).addTo(map);
+  
+        // Define icons
+        const iconSet = {
+                'Calm': L.icon({
+                        iconUrl: `${path}/data/pin_calm.png`,
+                        iconSize: [32, 32],
+                        iconAnchor: [16, 32],
+                        popupAnchor: [1, -25]
+                }),
+                'Chaotic': L.icon({
+                        iconUrl: `${path}/data/pin_chaotic.png`,
+                        iconSize: [32, 32],
+                        iconAnchor: [16, 32],
+                        popupAnchor: [1, -25]
+                }),
+                'Vibrant': L.icon({
+                        iconUrl: `${path}/data/pin_vibrant.png`,
+                        iconSize: [32, 32],
+                        iconAnchor: [16, 32],
+                        popupAnchor: [1, -25]
+                }),
+                'Monotonous': L.icon({
+                        iconUrl: `${path}/data/pin_boring.png`,
+                        iconSize: [32, 32],
+                        iconAnchor: [16, 32],
+                        popupAnchor: [1, -25]
+                })
+        };
+  
+        // Add markers for each filtered site
+        const markers = L.layerGroup(filtered_sites.map(d => {
+                return L.marker([d.lat, d.lng], {
+                        icon: iconSet[d.sitecat] 
+                        }).bindPopup(`
+                                <h4 style='color: black'><a href='${d.yt_link}'>${d.desc}</a></h4>
+                                <b>Type:</b> ${d.sitecat}<br>
+                                <b>SPL:</b> ${d.spl.toFixed(1)} dB(A)<br>
+                                <b>ISOPL:</b> ${d.isopl.toFixed(3)}<br>
+                                <b>ISOEV:</b> ${d.isoev.toFixed(3)}<br>
+                                ${d.yt_iframe}
+                                `, { maxWidth: 560 });
+                        }));
+        markers.addTo(map);
+
+        // Add legend to the map
+        var legend = L.control({position: 'bottomright'});
+        legend.onAdd = function (map) {
+                var div = L.DomUtil.create('div', 'info legend'),
+                        categories = ['Vibrant','Calm','Monotonous','Chaotic'],
+                        colors = ['#CE2E6C', '#FFB5B5', '#F0DECB', '#504658'];
+      
+                div.innerHTML += '<b>Site Type</b><br>';
+        
+                // Loop through the categories to generate labels
+                for (let i = 0; i < categories.length; i++) {
+                        div.innerHTML += `<i style="background:
+                                ${colors[i]}"></i> ${categories[i]}<br>`;
+                }
+        
+                return div;
+        };
+        legend.addTo(map);
+        
+        // Add polygons
+        const isoplLayer = L.geoJSON(isoplGeoJson, {
+                style: feature => ({
+                        fillColor: pal_isopl(feature.properties.var1pred),
+                        fillOpacity: 0.5,
+                        weight: 0
+                })
+        }).addTo(map);
+
+        const isoevLayer = L.geoJSON(isoevGeoJson, {
+                style: feature => ({
+                        fillColor: pal_isoev(feature.properties.var1pred),
+                        fillOpacity: 0.5,
+                        weight: 0
+                })
+        }).addTo(map);
+        
+        // Add legend for ISOPL
+        const legendIsopl = L.control({ position: 'bottomleft' });
+        legendIsopl.onAdd = function (map) {
+                const div = L.DomUtil.create('div', 'info legend');
+                const minValue = -0.2889;
+                const maxValue = 0.4136;
+                const steps = 10; // Number of steps in the gradient
+
+                div.innerHTML += '<b>ISOPL<b><br>';
+                
+                // Create a flex container
+                let legendContent = '<div style="display: flex; align-items: center;">';
+                
+                // Create gradient bar
+                let gradientBar = '<div style="width: 20px; height: 200px;';
+                
+                // Define linear gradient
+                gradientBar += 'background: linear-gradient(to bottom,';
+                gradientBar += 'rgba(69,117,180,0.5), rgba(145,191,219,0.5),';
+                gradientBar += 'rgba(224,243,248,0.5), rgba(255,255,191,0.5),';
+                gradientBar += 'rgba(254,224,144,0.5), rgba(252,141,89,0.5),';
+                gradientBar += 'rgba(215,48,39,0.5))"></div>';
+                
+                legendContent += gradientBar;
+                
+                // Add labels
+                legendContent += `<div style="width: 30px; height: 200px; display: flex;                                       flex-direction: column; justify-content: space-between; margin-left: 5px;">
+                        <span>${maxValue.toFixed(2)}</span>
+                        <span>${(maxValue - (maxValue - minValue) * 0.2).toFixed(1)}</span>
+                        <span>${(maxValue - (maxValue - minValue) * 0.4).toFixed(1)}</span>
+                        <span>${(maxValue - (maxValue - minValue) * 0.6).toFixed(1)}</span>
+                        <span>${(maxValue - (maxValue - minValue) * 0.8).toFixed(1)}</span>
+                        <span>${minValue.toFixed(2)}</span>
+                        </div>`;
+                legendContent += '</div>'; // Close the flex container
+    
+                div.innerHTML += legendContent;
+                
+                return div;
+        };
+        legendIsopl.addTo(map);
+        
+        // Add legend for ISOEV
+        const legendIsoev = L.control({ position: 'bottomleft' });
+        legendIsoev.onAdd = function (map) {
+                const div = L.DomUtil.create('div', 'info legend');
+                const minValue = -0.4313712;
+                const maxValue = 0.392208;
+                const steps = 10; // Number of steps in the gradient
+
+                div.innerHTML += '<b>ISOEV<b><br>';
+                
+                // Create a flex container
+                let legendContent = '<div style="display: flex; align-items: center;">';
+                
+                // Create gradient bar
+                let gradientBar = '<div style="width: 20px; height: 200px;';
+                
+                // Define linear gradient
+                gradientBar += 'background: linear-gradient(to bottom,';
+                gradientBar += 'rgba(27,120,55,0.5), rgba(127,191,123,0.5),';
+                gradientBar += 'rgba(217,240,211,0.5), rgba(247,247,247,0.5),';
+                gradientBar += 'rgba(231,212,232,0.5), rgba(175,141,195,0.5),';
+                gradientBar += 'rgba(118,42,131,0.5))"></div>';
+                
+                legendContent += gradientBar;
+                
+                // Add labels
+                legendContent += `<div style="width: 30px; height: 200px; display: flex;                                       flex-direction: column; justify-content: space-between; margin-left: 5px;">
+                        <span>${maxValue.toFixed(2)}</span>
+                        <span>${(maxValue - (maxValue - minValue) * 0.2).toFixed(1)}</span>
+                        <span>${(maxValue - (maxValue - minValue) * 0.4).toFixed(1)}</span>
+                        <span>${(maxValue - (maxValue - minValue) * 0.6).toFixed(1)}</span>
+                        <span>${(maxValue - (maxValue - minValue) * 0.8).toFixed(1)}</span>
+                        <span>${minValue.toFixed(2)}</span>
+                        </div>`;
+                legendContent += '</div>'; // Close the flex container
+    
+                div.innerHTML += legendContent;
+                
+                return div;
+        };
+        legendIsoev.addTo(map);
+        
+        // Add layer control
+        const overlayMaps = {
+                'Markers': markers,
+                'ISO Pleasantness': isoplLayer,
+                'ISO Eventfulness': isoevLayer
+        };
+        L.control.layers(null, overlayMaps).addTo(map);
+
+        return map;
+}
+
+```
+
+### Column {width="500"}
+
+```{ojs}
+  
+// Create the scatter plot with the unit circle and axes
+Plot.plot({
+        width: 480,
+        height: 480,
+        x: {
+                domain: [-0.5, 0.5],
+                label: "ISOPL",
+                grid: true
+        },
+        y: {
+                domain: [-0.5, 0.5],
+                label: "ISOEV",
+                grid: true
+        },
+        //r: { type: "linear", domain: [0, 12], range: [0, 480 - 60] },
+        marks: [
+                //Plot.dot([[0, 0]], { r: [3] }), // scaled (channel r)
+                Plot.dot(filtered_sites, { x: "isopl", y: "isoev", 
+                        stroke: "sitecat", tip: true,
+                        channels: {description: "desc", spl: "spl"}}),
+                Plot.crosshair(filtered_sites, {x: "isopl", y: "isoev"}),
+                Plot.ruleX([0], { stroke: "black" }),
+                Plot.ruleY([0], { stroke: "black" })
+        ],
+        color:{domain: ["Calm", "Chaotic", "Monotonous", "Vibrant"], range: ['#FFB5B5','#504658', '#F0DECB', '#CE2E6C']}
+});
+```
+
+## Row
+
+```{ojs}
+//create a table with the filtered sites
+
+viewof table = Inputs.table(filtered_sites, {
+  columns: [
+    "id",
+    "sitecat",
+    "desc",
+    "spl",
+    "isopl",
+    "isoev"
+  ],
+  header: {
+        id: "ID",
+        sitecat: "Site Type",
+        desc: "Description",
+        spl: "dB(A)",
+        isopl: "ISOPleasantness",
+        isoev: "ISOEventfulness"
+  },
+  width: {
+        id: 40,
+        sitecat: 60,
+        desc: 150,
+        spl: 60,
+        isopl: 80,
+        isoev: 80
+  },
+  format: {
+    depth: x => Number.isInteger(x) ? x.toString() : x.toFixed(2)
+  },
+  rows: Infinity, 
+  pagination: true
+})
+```
